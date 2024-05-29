@@ -1,0 +1,143 @@
+{
+  "transactions": {
+    "tittle": "Transactions",
+    "dateRangeFilter": "Date Range",
+    "add": "Add Transaction",
+    "edit": "Edit Transaction",
+    "typeFilter": "Type",
+    "type": {
+      "all": "All",
+      "revenue": "earning",
+      "spend": "expense",
+      "movement": "movement"
+    },
+    "table": {
+      "ammount": "AMMOUNT",
+      "transactionDate": "DATE RANGE",
+      "type": "TYPE",
+      "source": "SOURCE",
+      "active": "ACTIVE"
+    },
+    "moreInfo": " More Info"
+  },
+  "budgets": {
+    "tittle": "Budgets",
+    "typeFilter": "Type",
+    "budgetType": "Budget Type",
+    "add": "add Transaction",
+    "type": {
+      "all": "All",
+      "revenue": "earning",
+      "spend": "expense",
+      "movement": "movement"
+    },
+    "table": {
+      "ammount": "AMMOUNT",
+      "type": "TYPE",
+      "TransactionType": "TRANSACTION TYPE",
+      "source": "SOURCE TYPE",
+      "active": "ACTIVE"
+    },
+    "history-table": {
+      "targetAmmount": "  BUDGET AMMOUNT",
+      "currentAmmount": "CURRENT AMMOUNT",
+      "type": "TYPE",
+      "transactionType": "TRANSACTION TYPE",
+      "source": "SOURCE",
+      "startDate": "START DATE",
+      "endDate": "END DATE",
+      "active": "ACTIVE"
+    },
+    "moreInfo": "Mas Informacion"
+  },
+  "sources": {
+    "tittle": "Sources",
+    "table": {
+      "name": "NAME",
+      "description": "DESCRIPTION",
+      "active": "ACTIVE"
+    },
+    "add": "Add Source",
+    "edit": "Edit Source"
+  },
+  "account": {
+    "status": {
+      "Positive": "Positive",
+      "Medium": "Medium",
+      "Negative": "Negative"
+    }
+  },
+  "auth": {
+    "agree": "I agree to",
+    "createAccount": "Create account",
+    "email": "Email",
+    "username": "Username",
+    "phone": "Phone",
+    "login": "Login",
+    "repeat_password": "Repeat Password",
+    "password": "Password",
+    "recover_password": "Recover password",
+    "sign_up": "Sign Up",
+    "forgot_password": "Forgot password?",
+    "termsOfUse": "Terms of Use.",
+    "reset_password": "Reset password",
+    "password_help": "Password should be 8+ characters: letters, numbers, and special characters."
+  },
+  "404": {
+    "title": "This page’s gone fishing.",
+    "text": "If you feel that it’s not right, please send us a message at ",
+    "back_button": "Back to dashboard"
+  },
+  "typography": {
+    "primary": "Primary text styles",
+    "secondary": "Secondary text styles"
+  },
+  "dashboard": {
+    "versions": "Versions",
+    "setupRemoteConnections": "Setup Remote Connections",
+    "currentVisitors": "Current Visitors",
+    "navigationLayout": "navigation layout",
+    "topBarButton": "Top Bar",
+    "sideBarButton": "Side Bar"
+  },
+  "language": {
+    "english": "English",
+    "spanish": "Spanish"
+  },
+  "menu": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "transactions": "Transactions",
+    "sources": "Sources",
+    "budgets": "Budgets"
+  },
+  "messages": {
+    "all": "See all messages",
+    "new": "New messages from {name}",
+    "mark_as_read": "Mark As Read"
+  },
+  "navbar": {
+    "messageUs": "Web development inquiries:",
+    "repository": "GitHub Repo"
+  },
+  "notifications": {
+    "all": "See all notifications",
+    "less": "See less notifications",
+    "mark_as_read": "Mark as read",
+    "sentMessage": "sent you a message"
+  },
+  "helpAndSupport": "Help & support",
+  "aboutVuesticAdmin": "About Vuestic Admin",
+  "search": {
+    "placeholder": "Search..."
+  },
+  "buttonSelect": {
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "user": {
+    "settings": "Settings",
+    "logout": "Logout",
+    "account": "account"
+  }
+}
