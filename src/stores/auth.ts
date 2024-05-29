@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
 import AuthService from '../api/users/auth.service'
 import AccountService from '../api/transactions/account.service'
-import { Account, User } from '../pages/users/types'
-import { Login, NewUser } from '../pages/auth/types'
+import { Login, NewUser, User, Account } from '../pages/auth/types'
 
 const user: User = typeof localStorage !== 'undefined' ? JSON.parse(localStorage.getItem('user') ?? '{}') : undefined
 const account: Account =

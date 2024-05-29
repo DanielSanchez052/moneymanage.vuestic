@@ -30,6 +30,10 @@
             <RouterLink class="py-4" to="/" aria-label="Visit homepage">
               <img src="/MoneyManageLogo.png" class="mr-3 h-20" alt="MoneyManage Logo" />
             </RouterLink>
+            <div class="z-40 absolute h-8 text-xs font-bold text-white right-5 bottom-5 mt-16 mr-2 flex gap-2">
+              <ThemeSwitcher :show-text="false" />
+              <LanguageSwitcher :text="false" />
+            </div>
             <RouterView />
           </div>
         </main>

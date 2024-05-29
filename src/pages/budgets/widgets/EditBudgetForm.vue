@@ -6,7 +6,6 @@ import { SelectOption } from 'vuestic-ui'
 import { useAuthStore } from '../../../stores/auth'
 import { Source } from '../../sources/types'
 import { useI18n } from 'vue-i18n'
-import { DateInputModelValue } from 'vuestic-ui/dist/types/components/va-date-input/types'
 
 const { t } = useI18n()
 
@@ -44,7 +43,7 @@ defineExpose({
   isFormHasUnsavedChanges,
 })
 
-const formatFn = (value: DateInputModelValue): string => {
+const formatFn = (value: any): string => {
   const date = new Date(value)
   return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
 }

@@ -16,7 +16,6 @@ class TransactionService {
           TypeId: filter.Type?.id != 0 ? filter.Type?.id : null,
           SourceId: filter.Source?.id != '0' ? filter.Source?.id : null,
           AccountId: filter.AccountId,
-          UserId: filter.UserId,
           TransactionDateFrom: filter.TransactionDateRange?.start != '0' ? filter.TransactionDateRange?.start : null,
           TransactionDateTo: filter.TransactionDateRange?.end != '0' ? filter.TransactionDateRange?.end : null,
           PageIndex: pagination.PageIndex,

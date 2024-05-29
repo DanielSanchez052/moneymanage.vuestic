@@ -3,7 +3,6 @@ import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import RevenueUpdates from './cards/RevenueReport.vue'
 import MonthlyChart from './cards/MonthlyChart.vue'
 import { Transaction, TransactionFilters } from '../../transactions/types'
-import { DateInputRange } from 'vuestic-ui/dist/types/components/va-date-input/types'
 import { useBreakpoint } from 'vuestic-ui'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '../../../stores/auth'
@@ -19,7 +18,6 @@ const filters = ref<TransactionFilters>({
   Type: null,
   Source: null,
   AccountId: null,
-  UserId: null,
   TransactionDateRange: null,
 })
 const authParams = reactive({
@@ -60,16 +58,6 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', onResize)
 })
 
-const formatFn = (date: DateInputRange<Date>): string => {
-  const start =
-    date.start != undefined ? `${date.start?.getDate()}/${date.start?.getMonth() + 1}/${date.start?.getFullYear()}` : ''
-
-  const end =
-    date.end != undefined ? `${date.end?.getDate()}/${date.end?.getMonth() + 1}/${date.end?.getFullYear()}` : ''
-
-  return `${start} - ${end}`
-}
-
 const earnings = computed(() => {
   return months.map((month: string, idx: number) =>
     transactions.value.items
@@ -102,7 +90,6 @@ const expends = computed(() => {
                 v-model="filters.TransactionDateRange"
                 :placeholder="t('transactions.dateRangeFilter')"
                 mode="range"
-                :format="formatFn"
               />
               <VaSelect
                 v-model="pagination_filters.PageSize"
@@ -126,8 +113,8 @@ const expends = computed(() => {
     <div class="flex flex-col sm:flex-row gap-4">
       <RevenueUpdates :transactions="transactions.items" class="w-full sm:w-[70%]" />
       <div class="flex flex-col gap-4 w-full sm:w-[30%]">
-        <MonthlyChart :transactions="earnings" chart_background="rgba(75,192,192,0.4)" chart_label="Monthly Earnings" />
-        <MonthlyChart :transactions="expends" chart_background="rgba(75,192,192,0.4)" chart_label="Monthly Expenses" />
+        <MonthlyChart :transactions="earnings" chart-background="rgba(75,192,192,0.4)" chart-label="Monthly Earnings" />
+        <MonthlyChart :transactions="expends" chart-background="rgba(75,192,192,0.4)" chart-label="Monthly Expenses" />
       </div>
     </div>
   </section>

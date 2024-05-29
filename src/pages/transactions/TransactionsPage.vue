@@ -10,7 +10,6 @@ import { useModal, useToast } from 'vuestic-ui'
 import { useSources } from '../sources/composables/useSources'
 import { type Source } from '../sources/types'
 import { TypeProp } from '../../data/types'
-import { DateInputRange } from 'vuestic-ui/dist/types/components/va-date-input/types'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -22,7 +21,6 @@ const filters = ref<TransactionFilters>({
   Type: null,
   Source: null,
   AccountId: null,
-  UserId: null,
   TransactionDateRange: null,
 })
 const authParams = reactive({
@@ -148,15 +146,15 @@ const defaultType: TypeProp = {
   name: 'all',
 }
 
-const formatFn = (date: DateInputRange<Date>): string => {
-  const start =
-    date.start != undefined ? `${date.start?.getDate()}/${date.start?.getMonth() + 1}/${date.start?.getFullYear()}` : ''
+// const formatFn = (date: DateInputRange<Date>): string => {
+//   const start =
+//     date.start != undefined ? `${date.start?.getDate()}/${date.start?.getMonth() + 1}/${date.start?.getFullYear()}` : ''
 
-  const end =
-    date.end != undefined ? `${date.end?.getDate()}/${date.end?.getMonth() + 1}/${date.end?.getFullYear()}` : ''
+//   const end =
+//     date.end != undefined ? `${date.end?.getDate()}/${date.end?.getMonth() + 1}/${date.end?.getFullYear()}` : ''
 
-  return `${start} - ${end}`
-}
+//   return `${start} - ${end}`
+// }
 </script>
 
 <template>
@@ -196,7 +194,6 @@ const formatFn = (date: DateInputRange<Date>): string => {
             v-model="filters.TransactionDateRange"
             :placeholder="t('transactions.dateRangeFilter')"
             mode="range"
-            :format="formatFn"
           />
         </div>
         <VaButton icon="add" size="medium" :loading="isLoading" @click="createNewTransaction" />

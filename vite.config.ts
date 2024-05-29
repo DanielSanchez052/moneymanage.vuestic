@@ -12,13 +12,31 @@ export default defineConfig({
   },
   build: {
     sourcemap: true,
+    cssMinify: true,
+    minify: true,
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) return id.toString().split('node_modules/')[1].split('/')[0].toString()
+
+          // if (id.includes('node_modules')) {
+          //   if (id.includes('vuestic-ui')) {
+          //     return 'vuestic-ui'
+          //   } else if (id.includes('medium-editor')) {
+          //     return 'medium-editor'
+          //   }
+
+          //   return 'vendor' // all other package goes here
+          // }
+        },
+      },
+    },
   },
   plugins: [
     vue(),
     VueI18nPlugin({
       include: resolve(dirname(fileURLToPath(import.meta.url)), './src/i18n/locales/**'),
     }),
-    splitVendorChunkPlugin(),
   ],
   resolve: {
     alias: [{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) }],

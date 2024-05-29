@@ -18,14 +18,17 @@ export const useGlobalStore = defineStore('global', {
   state: () => {
     const { locale } = useI18n()
     locale.value = settings.lang
+
+    const languageCodes: { [id: string]: string } = {
+      gb: languages.english,
+      es: languages.spanish,
+    }
+
     return {
       locale: locale,
       isSidebarMinimized: false,
       settings: settings,
-      languageCodes: {
-        gb: languages.english,
-        es: languages.spanish,
-      },
+      languageCodes,
     }
   },
 

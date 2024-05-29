@@ -2,7 +2,7 @@
 import { toRefs, computed } from 'vue'
 import type { Revenues } from '../../../../data/charts/revenueChartData'
 import { earningsColor, expensesColor } from '../../../../data/charts/revenueChartData'
-import { Chart, registerables, ChartOptions } from 'chart.js'
+import { Chart, registerables } from 'chart.js'
 
 import VaChart from '../../../../components/va-charts/VaChart.vue'
 
@@ -35,7 +35,7 @@ const chart_data = computed(() => ({
   ],
 }))
 
-const chart_options = computed<ChartOptions>(() => ({
+const chart_options = computed(() => ({
   maintainAspectRatio: false,
   responsive: true,
   elements: {

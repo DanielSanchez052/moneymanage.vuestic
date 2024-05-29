@@ -47,7 +47,7 @@ export const getRandomColor = () => {
 }
 
 export const objectKeysToCamellCase = (obj: string) => {
-  return _.mapKeys(obj, (v, k) => _.camelCase(k.toString()))
+  return _.mapKeys(obj, (v, k) => _.camelCase(k.toString())) as any
 }
 
 export const getTypeName = (id: number) => {

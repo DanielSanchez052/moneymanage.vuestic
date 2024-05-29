@@ -1,16 +1,26 @@
 import { defineStore } from 'pinia'
-import { HubConnectionBuilder, HttpTransportType, LogLevel } from '@microsoft/signalr'
+import { HubConnectionBuilder, HttpTransportType, LogLevel, HubConnection } from '@microsoft/signalr'
 import settings from '../api/services.config'
 
 export const useNotificationsStore = defineStore('notifications', {
-  state: () => {
+  state: (): { connection: HubConnection | null; connectionStarted: boolean; notifications: any } => {
     return {
       connection: null,
       connectionStarted: false,
+      notifications: {
+        searchingForAJob: {
+          name: 'Searching for a job',
+          isEnabled: true,
+        },
+      },
     }
   },
   actions: {
     async startSignalR(jwtToken: string) {
+      if (this.connection == null) {
+        return
+      }
+
       this.connection = this.createConnection({
         url: settings.moneyManageApi.signalRHubUrl,
         token: jwtToken,
@@ -18,7 +28,7 @@ export const useNotificationsStore = defineStore('notifications', {
 
       const start = () => {
         this.connection
-          .start()
+          ?.start()
           .then(() => {
             this.connectionStarted = true
           })
@@ -40,7 +50,7 @@ export const useNotificationsStore = defineStore('notifications', {
 
     async stopSignalR() {
       try {
-        await this.connection.stop()
+        await this.connection?.stop()
       } catch (err) {
         console.error(err)
       } finally {
@@ -48,7 +58,7 @@ export const useNotificationsStore = defineStore('notifications', {
       }
     },
 
-    createConnection(config) {
+    createConnection(config: { url: string; token: string }) {
       return new HubConnectionBuilder()
         .withUrl(config.url, {
           accessTokenFactory: () => config.token,
@@ -60,13 +70,9 @@ export const useNotificationsStore = defineStore('notifications', {
         .build()
     },
 
-    signalOn(methodName: string, newMethod = () => {}) {
-      // tryOnScopeDispose(() => {
-      //     this.connection.off(methodName)
-      // })
-
-      return this.connection.on(methodName, (...arg) => {
-        newMethod(...arg)
+    signalOn(methodName: string, newMethod: (message: string) => void) {
+      return this.connection?.on(methodName, (...arg: string[]) => {
+        newMethod(arg[0])
       })
     },
   },

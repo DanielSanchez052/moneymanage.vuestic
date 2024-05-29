@@ -19,10 +19,12 @@
       </div>
     </VaAlert>
     <Notifications />
+    <VaMediumEditor />
   </div>
 </template>
 <script lang="ts" setup>
 import LanguageSwitcher from './language-switcher/LanguageSwitcher.vue'
 import ThemeSwitcher from '../../components/settings/theme-switcher/ThemeSwitcher.vue'
 import Notifications from './notifications/Notifications.vue'
+import VaMediumEditor from '../../components/va-medium-editor/VaMediumEditor.vue'
 </script>

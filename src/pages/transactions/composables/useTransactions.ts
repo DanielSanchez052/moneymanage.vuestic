@@ -10,7 +10,6 @@ const makeFiltersRef = () =>
     Type: null,
     Source: null,
     AccountId: null,
-    UserId: null,
     TransactionDateRange: null,
   })
 const makeAuthParamsRef = () =>

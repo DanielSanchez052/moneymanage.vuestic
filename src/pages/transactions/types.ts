@@ -5,7 +5,6 @@ export type TransactionFilters = {
   Type: TypeProp | null
   Source: Source | null
   AccountId: string | null
-  UserId: string | null
   TransactionDateRange: DateRange | null
 }
 

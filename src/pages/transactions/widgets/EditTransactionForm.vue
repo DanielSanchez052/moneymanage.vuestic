@@ -30,6 +30,8 @@ const defaultNewTransaction: Transaction = {
   ammount: 0,
   source: props.sources[0],
   type: props.types[0],
+  typeName: '',
+  sourceName: '',
   isActive: true,
   transactionDate: new Date().toISOString(),
   transactionExtendedProperties: [

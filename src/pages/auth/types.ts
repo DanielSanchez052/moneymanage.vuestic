@@ -21,3 +21,14 @@ export type RecoverPassword = {
   repeatPassword: string
   resetPasswordToken?: string
 }
+
+export type User = {
+  token: string
+  accountId: string
+}
+
+export type Account = {
+  id: string
+  status: string
+  ammountBalance: number
+}

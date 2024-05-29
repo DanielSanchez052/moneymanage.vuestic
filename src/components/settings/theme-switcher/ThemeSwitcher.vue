@@ -26,7 +26,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, defineProps, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useColors } from 'vuestic-ui'
 import { useI18n } from 'vue-i18n'
 import { useGlobalStore } from '../../../stores/global-store'
@@ -68,7 +68,7 @@ const changeTheme = () => {
   }
 }
 
-const text = {
+const text: { [id: string]: string } = {
   light: t('buttonSelect.light'),
   dark: t('buttonSelect.dark'),
 }
