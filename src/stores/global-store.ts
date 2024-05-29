@@ -10,7 +10,9 @@ export const languages: LanguageMap = {
 }
 
 const settings: Settings =
-  typeof localStorage !== 'undefined' ? JSON.parse(localStorage.getItem('settings') ?? '{}') : {}
+  typeof localStorage !== 'undefined'
+    ? JSON.parse(localStorage.getItem('settings') ?? '{"lang":"es","theme":"dark"}')
+    : {}
 
 export const useGlobalStore = defineStore('global', {
   state: () => {

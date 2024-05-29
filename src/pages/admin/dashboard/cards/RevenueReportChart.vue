@@ -2,8 +2,8 @@
 import { toRefs, computed } from 'vue'
 import type { Revenues } from '../../../../data/charts/revenueChartData'
 import { earningsColor, expensesColor } from '../../../../data/charts/revenueChartData'
-import { Chart, registerables, ChartOptions} from 'chart.js'
-import { Bar } from 'vue-chartjs'
+import { Chart, registerables, ChartOptions } from 'chart.js'
+
 import VaChart from '../../../../components/va-charts/VaChart.vue'
 
 const props = defineProps<{
@@ -70,7 +70,7 @@ const chart_options = computed<ChartOptions>(() => ({
 <template>
   <div class="flex justify-center w-full h-full overflow-hidden relative">
     <!-- <canvas ref="canvas" id="canvas" style="max-width: 100%"></canvas> -->
-    <VaChart type="bar" :data="chart_data" :options="chart_options"/>
+    <VaChart type="bar" :data="chart_data" :options="chart_options" />
     <!-- <Bar id="bar-chart" :data="chart_data" :options="chart_options" /> -->
   </div>
 </template>

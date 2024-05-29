@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import RevenueUpdates from './cards/RevenueReport.vue'
-import YearlyBreakup from './cards/YearlyBreakup.vue'
 import MonthlyChart from './cards/MonthlyChart.vue'
 import { Transaction, TransactionFilters } from '../../transactions/types'
 import { DateInputRange } from 'vuestic-ui/dist/types/components/va-date-input/types'
@@ -10,7 +9,7 @@ import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '../../../stores/auth'
 import { Pagination } from '../../../data/types'
 import { useTransactions } from '../../transactions/composables/useTransactions'
-import { Revenues, months } from '../../../data/charts/revenueChartData'
+import { months } from '../../../data/charts/revenueChartData'
 
 const { t } = useI18n()
 const authStore = useAuthStore()
@@ -73,20 +72,19 @@ const formatFn = (date: DateInputRange<Date>): string => {
 
 const earnings = computed(() => {
   return months.map((month: string, idx: number) =>
-      transactions.value.items
-        .filter((t: Transaction) => new Date(t.transactionDate).getMonth() == idx && t.type.id == 1)
-        .reduce((n: number, { ammount }: Transaction) => n + ammount, 0)
+    transactions.value.items
+      .filter((t: Transaction) => new Date(t.transactionDate).getMonth() == idx && t.type.id == 1)
+      .reduce((n: number, { ammount }: Transaction) => n + ammount, 0),
   )
 })
 
 const expends = computed(() => {
   return months.map((month: string, idx: number) =>
-      transactions.value.items
-        .filter((t: Transaction) => new Date(t.transactionDate).getMonth() == idx && t.type.id == 2)
-        .reduce((n: number, { ammount }: Transaction) => n + ammount, 0)
+    transactions.value.items
+      .filter((t: Transaction) => new Date(t.transactionDate).getMonth() == idx && t.type.id == 2)
+      .reduce((n: number, { ammount }: Transaction) => n + ammount, 0),
   )
 })
-
 </script>
 
 <template>
@@ -128,8 +126,8 @@ const expends = computed(() => {
     <div class="flex flex-col sm:flex-row gap-4">
       <RevenueUpdates :transactions="transactions.items" class="w-full sm:w-[70%]" />
       <div class="flex flex-col gap-4 w-full sm:w-[30%]">
-        <MonthlyChart :transactions="earnings" chart_background="rgba(75,192,192,0.4)" chart_label="Monthly Earnings"/>
-        <MonthlyChart :transactions="expends" chart_background="rgba(75,192,192,0.4)" chart_label="Monthly Expenses"/>
+        <MonthlyChart :transactions="earnings" chart_background="rgba(75,192,192,0.4)" chart_label="Monthly Earnings" />
+        <MonthlyChart :transactions="expends" chart_background="rgba(75,192,192,0.4)" chart_label="Monthly Expenses" />
       </div>
     </div>
   </section>

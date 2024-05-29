@@ -37,7 +37,7 @@ class AuthService {
       })
   }
 
-  confirmEmailRequest(confirmationRequest) {
+  confirmEmailRequest(confirmationRequest: any) {
     return axios
       .post(settings.identityApi.BaseUrl + settings.identityApi.confim_email_request, {
         email: confirmationRequest.email,

@@ -1,7 +1,7 @@
 <template>
   <VaCard>
     <VaCardTitle>
-      <h1 class="card-title text-tag text-secondary font-bold uppercase">{{ chart_label }}</h1>
+      <h1 class="card-title text-tag text-secondary font-bold uppercase">{{ chartLabel }}</h1>
     </VaCardTitle>
     <VaCardContent>
       <div class="p-1 bg-black rounded absolute right-4 top-4">
@@ -19,13 +19,13 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, computed, toRefs} from 'vue'
+import { PropType, computed, toRefs } from 'vue'
 import { VaCard } from 'vuestic-ui'
 import VaChart from '../../../../components/va-charts/VaChart.vue'
 import { useChartData } from '../../../../data/charts/composables/useChartData'
 import { TLineChartData } from '../../../../data/types'
 import { months } from '../../../../data/charts/revenueChartData'
-import { Chart, registerables, ChartOptions} from 'chart.js'
+import { Chart, registerables, ChartOptions } from 'chart.js'
 import { formatMoney } from '../../../../services/utils'
 
 Chart.register(...registerables)
@@ -35,34 +35,34 @@ const props = defineProps({
     type: Object as PropType<number[]>,
     required: true,
   },
-  chart_label: {
+  chartLabel: {
     type: String,
     required: true,
   },
-  chart_background: {
+  chartBackground: {
     type: String,
     required: true,
-  }
+  },
 })
 
-const { transactions, chart_background, chart_label } = toRefs(props)
+const { transactions, chartBackground, chartLabel } = toRefs(props)
 
 const lineChartData = computed<TLineChartData>(() => {
   return {
-  labels: months,
-  datasets: [
-    {
-      label: chart_label.value,
-      backgroundColor: chart_background.value,
-      data: transactions.value
-    },
-  ],
-}
+    labels: months,
+    datasets: [
+      {
+        label: chartLabel.value,
+        backgroundColor: chartBackground.value,
+        data: transactions.value,
+      },
+    ],
+  }
 })
 
 const chartData = useChartData(lineChartData)
 
-const total = computed(() => transactions.value.reduce((n: number, ammount ) => n + ammount, 0))
+const total = computed(() => transactions.value.reduce((n: number, ammount) => n + ammount, 0))
 
 const options: ChartOptions<'line'> = {
   scales: {

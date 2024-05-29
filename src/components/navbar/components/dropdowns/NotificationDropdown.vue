@@ -69,12 +69,6 @@ interface INotification {
   updateTimestamp: Date
 }
 
-const makeDateFromNow = (timeFromNow: number) => {
-  const date = new Date()
-  date.setTime(date.getTime() + timeFromNow)
-  return date
-}
-
 const statusColorMap: Dictionary<string> = {
   Positive: 'success',
   Medium: 'primary',
@@ -89,7 +83,8 @@ const notifications: INotification[] = [
   //   separator: true,
   //   updateTimestamp: makeDateFromNow(-3 * 60 * 1000),
   // },
-].sort((a, b) => new Date(b.updateTimestamp).getTime() - new Date(a.updateTimestamp).getTime())
+]
+//.sort((a, b) => new Date(b.updateTimestamp).getTime() - new Date(a.updateTimestamp).getTime())
 
 const TIME_NAMES = {
   second: 1000,
