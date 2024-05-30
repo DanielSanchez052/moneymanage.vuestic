@@ -7,7 +7,7 @@
         to="/"
         aria-label="Visit homepage"
       >
-        <img src="/public/MoneyManageLogo.webp" class="mr-3 h-20" alt="MoneyManage Logo" />
+        <img src="/MoneyManageLogo.webp" class="mr-3 h-20" alt="MoneyManage Logo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">MoneyManage</span>
       </RouterLink>
       <div class="z-40 absolute h-8 text-xs font-bold text-white right-5 bottom-5 mt-16 mr-2 flex gap-2">
