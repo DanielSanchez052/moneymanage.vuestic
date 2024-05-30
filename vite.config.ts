@@ -10,14 +10,18 @@ export default defineConfig({
   server: {
     origin: 'https://originalcoin.online',
     headers: {
-      'Strict-Transport-Security': 'max-age=86400; includeSubDomains', // Adds HSTS options to your website, with a expiry time of 1 day
+      'Strict-Transport-Security': 'max-age=2592000; includeSubDomains', // Adds HSTS options to your website, with a expiry time of 1 day
       'X-Content-Type-Options': 'nosniff', // Protects from improper scripts runnings
       'X-Frame-Options': 'DENY', // Stops your site being used as an iframe
       'X-XSS-Protection': '1; mode=block', // Gives XSS protection to legacy browsers
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Permissions-Policy':
+        'accelerometer=(), autoplay=(), camera=(), encrypted-media=(), microphone=(), geolocation=(), gyroscope=(), magnetometer=(), midi=(), payment=(), picture-in-picture=(), sync-xhr=(self), usb=()',
       'Content-Security-Policy':
-        "default-src 'self' https://fonts.googleapis.com https://mnw9y2xpf0.execute-api.us-east-1.amazonaws.com https://dev-moneymanage.originalcoin.online; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.googleapis.com; img-src 'self'; frame-src 'self'",
+        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://originalcoin.online; img-src 'self'; frame-src 'self'",
     },
   },
+  //https://fonts.googleapis.com https://mnw9y2xpf0.execute-api.us-east-1.amazonaws.com https://dev-moneymanage.originalcoin.online
   build: {
     sourcemap: true,
     cssMinify: true,

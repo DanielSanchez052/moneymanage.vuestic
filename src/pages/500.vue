@@ -5,7 +5,7 @@ import NotFoundImage from '../components/NotFoundImage.vue'
 <template>
   <div class="flex flex-col justify-between h-screen items-center bg-[var(--va-background-secondary)]">
     <RouterLink to="/">
-      <img src="/MoneyManageLogo.png" class="mr-3 h-14" alt="MoneyManage Logo" />
+      <img src="/MoneyManageLogo.webp" class="mr-3 h-14" alt="MoneyManage Logo" />
     </RouterLink>
 
     <div class="flex flex-col items-center gap-6 px-4 my-8">

@@ -12,7 +12,7 @@
           />
         </Transition>
         <RouterLink to="/" aria-label="Visit home page" class="flex items-center justify-between mr-4">
-          <img src="/MoneyManageLogo.png" class="mr-3 h-8" alt="MoneyManage Logo" />
+          <img src="/MoneyManageLogo.webp" class="mr-3 h-8" alt="MoneyManage Logo" />
           <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">MoneyManage</span>
         </RouterLink>
       </div>
