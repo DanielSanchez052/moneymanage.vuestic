@@ -6,7 +6,7 @@ import AppLayout from '../layouts/AppLayout.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/:pathMatch(.*)*',
-    redirect: { name: 'dashboard' },
+    redirect: { name: '404' },
   },
   {
     name: 'admin',
@@ -90,6 +90,11 @@ const routes: Array<RouteRecordRaw> = [
     name: '404',
     path: '/404',
     component: () => import('../pages/404.vue'),
+  },
+  {
+    name: '500',
+    path: '/500',
+    component: () => import('../pages/500.vue'),
   },
 ]
 
