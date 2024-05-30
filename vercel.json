@@ -22,7 +22,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://* https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://originalcoin.online; img-src 'self'; frame-src 'self'"
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com ; img-src 'self'; frame-src 'self'"
         },
         {
           "key": "Referrer-Policy",
