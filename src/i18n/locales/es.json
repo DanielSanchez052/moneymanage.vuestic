@@ -50,6 +50,26 @@
     },
     "moreInfo": "Mas Informacion"
   },
+  "loans": {
+    "tittle": "Prestado",
+    "add": "Agregar ",
+    "table": {
+      "lend": "Quien",
+      "borrow": "A quien",
+      "ammountBorrowed": "Cuanto",
+      "paymentFrecuencyName": "Frecuencia",
+      "percentage": "Porcentaje",
+      "paid": "Pagó"
+    },
+    "history-table": {
+      "paymentDate": "Fecha Pago",
+      "transaction": "Transaccion realizada",
+      "transactionTypeName": "Tipo Transaccion",
+      "ammountToPay": "A Pagar",
+      "ammoundPaid": "Pagado",
+      "generated": "Generado"
+    }
+  },
   "sources": {
     "tittle": "Fuentes",
     "table": {
@@ -110,7 +130,8 @@
     "dashboard": "Tablero",
     "transactions": "Transacciones",
     "sources": "Fuentes",
-    "budgets": "Presupuestos"
+    "budgets": "Presupuestos",
+    "loans": "Prestado"
   },
   "messages": {
     "all": "Ver todos los mensajes",

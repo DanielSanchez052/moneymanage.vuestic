@@ -50,6 +50,26 @@
     },
     "moreInfo": "Mas Informacion"
   },
+  "loans": {
+    "tittle": "Loans",
+    "add": "Add ",
+    "table": {
+      "lend": "Quien",
+      "borrow": "A quien",
+      "ammountBorrowed": "Cuanto",
+      "paymentFrecuencyName": "Frecuencia",
+      "percentage": "Porcentaje",
+      "paid": "Pagó"
+    },
+    "history-table": {
+      "paymentDate": "Fecha Pago",
+      "transaction": "Transaccion realizada",
+      "transactionTypeName": "Tipo Transaccion",
+      "ammountToPay": "A Pagar",
+      "ammoundPaid": "Pagado",
+      "generated": "Generado"
+    }
+  },
   "sources": {
     "tittle": "Sources",
     "table": {
