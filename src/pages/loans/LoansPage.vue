@@ -7,7 +7,7 @@ import LoanHistoryTable from './widgets/LoanHistoryTable.vue'
 import EditLoanForm from './widgets/EditLoanForm.vue'
 import TransactionForm from './widgets/TransactionForm.vue'
 import { Loan, LoanFilters, LoanTransactionHistory, NewLoan } from './types'
-import { useModal, useToast } from 'vuestic-ui'
+import { useModal } from 'vuestic-ui'
 import { TypeProp } from '../../data/types'
 import { useI18n } from 'vue-i18n'
 
@@ -24,7 +24,7 @@ const filters = ref<LoanFilters>({
   Borrow: null,
   Frecuency: null,
   isPaid: null,
-  Lend: null
+  Lend: null,
 })
 const authParams = reactive({
   token: authStore.user?.token ?? '',
@@ -56,10 +56,11 @@ const createNewLoan = () => {
   doShowLoanFormModal.value = true
 }
 
-const { init: notify } = useToast()
+// const { init: notify } = useToast()
 
 const onLoanSaved = async (loan: NewLoan) => {
   doShowLoanFormModal.value = false
+  console.log(loan)
 
   // const result = await add(loan)
 
@@ -126,11 +127,7 @@ const defaultType: TypeProp = {
         />
       </div>
       <div v-else>
-        <LoanHistoryTable
-          :loan="loanSelected"
-          :loading="isLoading"
-          @show-transaction="showTransactionModal"
-          />
+        <LoanHistoryTable :loan="loanSelected" :loading="isLoading" @showTransaction="showTransactionModal" />
       </div>
     </VaCardContent>
 
@@ -147,7 +144,7 @@ const defaultType: TypeProp = {
       <h1 class="va-h5 mb-4">{{ t('loans.add') }}</h1>
       <EditLoanForm
         ref="editFormRef"
-        :frecuency-list="[ defaultType]"
+        :frecuency-list="[defaultType]"
         @close="cancel"
         @save="
           (budget) => {
@@ -158,7 +155,7 @@ const defaultType: TypeProp = {
       />
     </VaModal>
     <VaModal
-      v-slot="{ cancel, ok }"
+      v-slot="{ cancel }"
       v-model="doShowTransactionModal"
       size="small"
       mobile-fullscreen
@@ -167,10 +164,7 @@ const defaultType: TypeProp = {
       hide-default-actions
     >
       <h1 class="va-h5 mb-4">{{ t('loans.add') }}</h1>
-      <TransactionForm
-        :loan-history="loanHistorySelected"
-        :loan="loanSelected"
-      />
+      <TransactionForm :loan-history="loanHistorySelected" :loan="loanSelected" @close="cancel" />
     </VaModal>
   </VaCard>
 </template>

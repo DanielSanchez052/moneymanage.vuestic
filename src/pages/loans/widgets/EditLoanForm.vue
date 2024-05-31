@@ -4,9 +4,8 @@ import { NewLoan } from '../types'
 import { TypeProp } from '../../../data/types'
 import { SelectOption } from 'vuestic-ui'
 import { useAuthStore } from '../../../stores/auth'
-import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+// const { t } = useI18n()
 
 const authStore = useAuthStore()
 
@@ -21,13 +20,12 @@ defineEmits<{
 
 const defaultNewLoan: NewLoan = {
   accountId: authStore.user?.accountId ?? '',
-  lend: "",
-  borrow: "",
+  lend: '',
+  borrow: '',
   ammountBorrowed: 0,
   paymentFrecuency: props.frecuencyList[0],
   percentage: 0,
-  periodCount: 1
-
+  periodCount: 1,
 }
 
 const newLoan = ref({ ...defaultNewLoan })

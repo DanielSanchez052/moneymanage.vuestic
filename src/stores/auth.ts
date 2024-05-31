@@ -46,7 +46,7 @@ export const useAuthStore = defineStore('auth', {
       }
 
       try {
-        const response = await AccountService.GetAccountById(this.user?.token ?? '', this.user?.accountId ?? '')
+        const response = await AccountService.GetAccountById(this.user?.token ?? '')
 
         if (!response.success) {
           this.account = null

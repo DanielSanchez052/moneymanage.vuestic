@@ -14,7 +14,7 @@ const badgeColorMap: Record<string, string> = {
   revenue: 'success',
   spend: 'danger',
   movement: 'primary',
-  undefined: "secondary"
+  undefined: 'secondary',
 }
 </script>
 

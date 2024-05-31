@@ -33,8 +33,6 @@ defineProps({
 const emit = defineEmits<{
   (event: 'showTransaction', loan: Loan, loanHistory: LoanTransactionHistory): void
 }>()
-
-
 </script>
 
 <template>

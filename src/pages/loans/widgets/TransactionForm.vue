@@ -24,12 +24,11 @@ defineEmits<{
   (event: 'close'): void
 }>()
 
-
 const { transaction, getById, isLoading } = useTransactions({
-      authParams: authParams,
-      transactionId: props.loanHistory?.transactionId ?? "",
-      initialFetch: false
-    })
+  authParams: authParams,
+  transactionId: props.loanHistory?.transactionId ?? '',
+  initialFetch: false,
+})
 
 const defaultNewTransaction: Transaction = {
   id: '',
@@ -61,26 +60,21 @@ watch(
       return
     }
 
-    await getById(props.loanHistory.transactionId ?? "")
+    await getById(props.loanHistory.transactionId ?? '')
 
     currentTransaction.value = {
-      ...transaction.value ?? defaultNewTransaction
+      ...(transaction.value ?? defaultNewTransaction),
     }
   },
   { immediate: true },
 )
-
 </script>
 
 <template>
   <div class="relative">
     <VaForm class="flex flex-col gap-2">
-      <VaInput v-model="currentTransaction.ammount" label="Ammount" mask="numeral" disabled/>
-      <VaDateInput
-        v-model="currentTransaction.transactionDate"
-        label="Transaction Date"
-        disabled
-      />
+      <VaInput v-model="currentTransaction.ammount" label="Ammount" mask="numeral" disabled />
+      <VaDateInput v-model="currentTransaction.transactionDate" label="Transaction Date" disabled />
       <section class="my-2 p-2">
         <h3 class="text-md text-center text-gray-400">{{ t('transactions.moreInfo') }}</h3>
         <div class="overflow-y-auto max-h-72">
@@ -97,11 +91,7 @@ watch(
               />
             </div>
             <div class="col-span-3">
-              <VaInput
-                v-model="currentTransaction.transactionExtendedProperties[index].key"
-                disabled
-                label="Key"
-              />
+              <VaInput v-model="currentTransaction.transactionExtendedProperties[index].key" disabled label="Key" />
             </div>
             <div class="col-span-3">
               <VaInput
@@ -117,7 +107,7 @@ watch(
         <VaButton preset="secondary" color="secondary" @click="$emit('close')">Cancel</VaButton>
       </div>
     </VaForm>
-    <div class="absolute top-1/4 left-1/2" v-if="isLoading">
+    <div v-if="isLoading" class="absolute top-1/4 left-1/2">
       <VaProgressCircle indeterminate />
     </div>
   </div>
