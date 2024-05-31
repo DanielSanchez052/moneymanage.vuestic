@@ -50,7 +50,7 @@ const required = (v: string | SelectOption) => !!v || 'This field is required'
     <VaInput v-model="newLoan.lend" label="Lend" :rules="[required]" />
     <VaInput v-model="newLoan.borrow" label="Borrow" :rules="[required]" />
     <VaInput v-model="newLoan.ammountBorrowed" label="Ammount" :rules="[required]" mask="numeral" />
-    <VaInput v-model="newLoan.percentage" label="Percentage" :rules="[required]" mask="numeral" />
+    <VaInput v-model="newLoan.percentage" label="Percentage" mask="numeral" />
     <VaInput v-model="newLoan.periodCount" label="Period Count" :rules="[required]" mask="numeral" />
     <VaSelect
       v-model="newLoan.paymentFrecuency"

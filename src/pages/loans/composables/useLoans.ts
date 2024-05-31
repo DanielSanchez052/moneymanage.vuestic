@@ -52,29 +52,18 @@ export const useLoans = (options?: {
     const resultConverted: Loan[] = loans.value.items.map((a) => {
       const converted: LoanTransactionHistory[] = a.loanTransactionHistory.map((h) => {
         return {
-          id: h.id,
-          ammoundPaid: h.ammoundPaid,
-          ammountToPay: h.ammountToPay,
-          generated: h.generated,
-          paymentDate: h.paymentDate,
-          transactionId: h.transactionId,
+          ...h,
           transactionCompleted: h.transactionId != undefined,
-          transactionType: h.transactionType,
-          transactionTypeName: h.transactionType.name,
+          transactionTypeName: h.transactionType?.name,
         }
       })
       return {
-        loanId: a.loanId,
-        ammountBorrowed: a.ammountBorrowed,
-        borrow: a.borrow,
-        lend: a.lend,
-        paid: a.paid,
-        paymentFrecuency: a.paymentFrecuency,
+        ...a,
         paymentFrecuencyName: a.paymentFrecuency.name,
-        percentage: a.percentage,
         loanTransactionHistory: converted,
       }
     })
+    console.log(resultConverted)
 
     loans.value.items = []
     loans.value.items.push(...resultConverted)

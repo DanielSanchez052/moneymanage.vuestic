@@ -22,7 +22,10 @@ export const useTransactions = (options?: {
   pagination?: Ref<Pagination>
   filters?: Ref<TransactionFilters>
   authParams?: AuthenticationParams
+  transactionId?: string | undefined
+  initialFetch?: boolean
 }) => {
+  const initialFetch = options != undefined && options?.initialFetch != undefined ? options?.initialFetch : true
   const isLoading = ref(false)
   const transactions = ref<PaginatedResult<Transaction>>({
     hasNextPage: false,
@@ -32,6 +35,8 @@ export const useTransactions = (options?: {
     totalCount: 0,
     pageSize: 0,
   })
+
+  const transaction = ref<Transaction>()
 
   const { pagination = makePaginationRef() } = options ?? {}
   const { filters = makeFiltersRef() } = options ?? {}
@@ -45,16 +50,9 @@ export const useTransactions = (options?: {
     transactions.value = result.data as PaginatedResult<Transaction>
 
     const mapped: Transaction[] = transactions.value.items.map((t) => ({
-      id: t.id,
-      accountId: t.accountId,
-      ammount: t.ammount,
-      transactionDate: t.transactionDate,
-      type: t.type,
+      ...t,
       typeName: t.type?.name ?? '',
-      source: t.source,
       sourceName: t.source?.name ?? '',
-      isActive: t.isActive,
-      transactionExtendedProperties: t.transactionExtendedProperties,
     }))
 
     transactions.value.items = []
@@ -65,15 +63,41 @@ export const useTransactions = (options?: {
     isLoading.value = false
   }
 
+  const getById = async (transactionId: string) => {
+    isLoading.value = true
+
+    const result = await TransactionService.GetTransactionbyId(authParams.token, transactionId)
+
+    transaction.value = result.data as Transaction
+
+    console.log(result.data)
+
+    const mapped: Transaction = {
+      ...transaction.value,
+      typeName: transaction.value.type?.name ?? '',
+      sourceName: transaction.value.source?.name ?? '',
+    }
+
+    transaction.value = mapped
+
+    ignoreUpdates(() => {})
+
+    isLoading.value = false
+  }
+
   const { ignoreUpdates } = watchIgnorable([pagination, filters, authParams], fetch, { deep: true })
 
-  fetch()
+  if (options?.transactionId == undefined && initialFetch) {
+    fetch()
+  } else if (initialFetch && options?.transactionId != undefined) {
+    getById(options.transactionId ?? '')
+  }
 
   return {
     isLoading,
     transactions,
+    transaction,
     fetch,
-
     async add(transaction: Omit<NewTransaction, 'id'>) {
       isLoading.value = true
 
@@ -100,7 +124,7 @@ export const useTransactions = (options?: {
       await fetch()
       isLoading.value = false
     },
-
+    getById,
     pagination,
     filters,
     authParams,

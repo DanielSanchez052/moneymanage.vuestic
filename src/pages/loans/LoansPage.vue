@@ -5,7 +5,8 @@ import { useAuthStore } from '../../stores/auth'
 import LoanTable from './widgets/LoansTable.vue'
 import LoanHistoryTable from './widgets/LoanHistoryTable.vue'
 import EditLoanForm from './widgets/EditLoanForm.vue'
-import { Loan, LoanFilters, NewLoan } from './types'
+import TransactionForm from './widgets/TransactionForm.vue'
+import { Loan, LoanFilters, LoanTransactionHistory, NewLoan } from './types'
 import { useModal, useToast } from 'vuestic-ui'
 import { TypeProp } from '../../data/types'
 import { useI18n } from 'vue-i18n'
@@ -13,7 +14,9 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const authStore = useAuthStore()
 const loanSelected = ref<Loan | null>(null)
+const loanHistorySelected = ref<LoanTransactionHistory | null>(null)
 const doShowLoanFormModal = ref(false)
+const doShowTransactionModal = ref(false)
 const doShowMoreInfoModal = ref(false)
 const pageSection = ref<'list' | 'detail'>('list')
 const filters = ref<LoanFilters>({
@@ -27,7 +30,7 @@ const authParams = reactive({
   token: authStore.user?.token ?? '',
   accountId: authStore.user?.accountId ?? '',
 })
-const { loans, add, isLoading, pagination } = useLoans({
+const { loans, isLoading, pagination } = useLoans({
   authParams: authParams,
   filters: filters,
 })
@@ -42,6 +45,12 @@ const showMoreInfo = (loan: Loan) => {
   setPageSection('detail')
 }
 
+const showTransactionModal = (loan: Loan, loanHistory: LoanTransactionHistory) => {
+  loanHistorySelected.value = loanHistory
+  loanSelected.value = loan
+  doShowTransactionModal.value = true
+}
+
 const createNewLoan = () => {
   loanSelected.value = null
   doShowLoanFormModal.value = true
@@ -49,7 +58,7 @@ const createNewLoan = () => {
 
 const { init: notify } = useToast()
 
-const onBudgetLoan = async (loan: NewLoan) => {
+const onLoanSaved = async (loan: NewLoan) => {
   doShowLoanFormModal.value = false
 
   // const result = await add(loan)
@@ -117,7 +126,11 @@ const defaultType: TypeProp = {
         />
       </div>
       <div v-else>
-        <LoanHistoryTable :loan="loanSelected" :loading="isLoading" />
+        <LoanHistoryTable
+          :loan="loanSelected"
+          :loading="isLoading"
+          @show-transaction="showTransactionModal"
+          />
       </div>
     </VaCardContent>
 
@@ -138,10 +151,25 @@ const defaultType: TypeProp = {
         @close="cancel"
         @save="
           (budget) => {
-            onBudgetLoan(budget)
+            onLoanSaved(budget)
             ok()
           }
         "
+      />
+    </VaModal>
+    <VaModal
+      v-slot="{ cancel, ok }"
+      v-model="doShowTransactionModal"
+      size="small"
+      mobile-fullscreen
+      close-button
+      stateful
+      hide-default-actions
+    >
+      <h1 class="va-h5 mb-4">{{ t('loans.add') }}</h1>
+      <TransactionForm
+        :loan-history="loanHistorySelected"
+        :loan="loanSelected"
       />
     </VaModal>
   </VaCard>

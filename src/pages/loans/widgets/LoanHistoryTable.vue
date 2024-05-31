@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
 import { defineVaDataTableColumns } from 'vuestic-ui'
-import { Loan } from '../types'
+import { Loan, LoanTransactionHistory } from '../types'
 import TransactionTypeBadge from '../../transactions/components/TransactionTypeBadge.vue'
 import BooleanBadge from '../../../components/general/BooleanBadge.vue'
 import { formatMoney, formatDateToISO } from '../../../services/utils'
@@ -29,6 +29,12 @@ defineProps({
     required: true,
   },
 })
+
+const emit = defineEmits<{
+  (event: 'showTransaction', loan: Loan, loanHistory: LoanTransactionHistory): void
+}>()
+
+
 </script>
 
 <template>
@@ -67,6 +73,15 @@ defineProps({
             icon="payments"
             color="secondary"
             aria-label="Pagar"
+          />
+          <VaButton
+            v-else
+            preset="secondary"
+            size="medium"
+            icon="account_balance_wallet"
+            color="secondary"
+            aria-label="Transaccion"
+            @click="emit('showTransaction', loan as Loan, loanH as LoanTransactionHistory)"
           />
         </div>
       </template>

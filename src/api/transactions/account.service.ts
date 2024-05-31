@@ -3,8 +3,8 @@ import httpClient from '../http_client'
 import settings from '../services.config'
 
 class AccountService {
-  GetAccountById(accessToken: string, accountId: string) {
-    const endpoint = `${settings.moneyManageApi.account}/${accountId}`
+  GetAccountById(accessToken: string) {
+    const endpoint = `${settings.moneyManageApi.account}`
 
     return httpClient
       .get<any, ApiResponse>(settings.moneyManageApi.BaseUrl + endpoint, {

@@ -9,7 +9,8 @@
       "all": "All",
       "revenue": "earning",
       "spend": "expense",
-      "movement": "movement"
+      "movement": "movement",
+      "undefined": "Not Defined"
     },
     "table": {
       "ammount": "AMMOUNT",

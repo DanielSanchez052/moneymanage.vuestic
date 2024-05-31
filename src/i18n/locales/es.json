@@ -9,7 +9,8 @@
       "all": "Todos",
       "revenue": "Ganado",
       "spend": "Gastado",
-      "movement": "Movimiento"
+      "movement": "Movimiento",
+      "undefined": "No Definido"
     },
     "table": {
       "ammount": "MONTO",

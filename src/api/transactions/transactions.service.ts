@@ -27,6 +27,20 @@ class TransactionService {
       })
   }
 
+  async GetTransactionbyId(accessToken: string, transactionId: string) {
+    const endpoint: string = `${settings.moneyManageApi.transaction}/${transactionId}`
+    return httpClient
+      .get<any, ApiResponse>(settings.moneyManageApi.BaseUrl + endpoint, {
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+        },
+        responseType: 'json',
+      })
+      .then((res) => {
+        return res
+      })
+  }
+
   async CreateTransaction(accessToken: string, accountId: string, transaction: NewTransaction) {
     try {
       const res = await httpClient.post<any, ApiResponse>(
