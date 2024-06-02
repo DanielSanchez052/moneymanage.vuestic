@@ -82,5 +82,4 @@ const text: { [id: string]: string } = {
 watch(globalStore.settings, () => {
   setThemeConfig()
 })
-
 </script>

@@ -8,7 +8,6 @@ import EditLoanForm from './widgets/EditLoanForm.vue'
 import TransactionForm from './widgets/TransactionForm.vue'
 import { Loan, LoanFilters, LoanTransactionHistory, NewLoan } from './types'
 import { useModal, useToast } from 'vuestic-ui'
-import { TypeProp } from '../../data/types'
 import { useI18n } from 'vue-i18n'
 import { useLoanFrecuency } from './composables/useLoanFrecuency'
 
@@ -37,7 +36,7 @@ const { loans, isLoading, pagination, add } = useLoans({
   filters: filters,
 })
 
-const { loanFrecuency } = useLoanFrecuency({authParams})
+const { loanFrecuency } = useLoanFrecuency({ authParams })
 
 function setPageSection(section: 'list' | 'detail' = 'detail') {
   pageSection.value = section
@@ -98,11 +97,6 @@ const beforeEditFormModalClose = async (hide: () => unknown) => {
   } else {
     hide()
   }
-}
-
-const defaultType: TypeProp = {
-  id: 0,
-  name: 'all',
 }
 </script>
 
@@ -168,7 +162,12 @@ const defaultType: TypeProp = {
       hide-default-actions
     >
       <h1 class="va-h5 mb-4">{{ isPayment ? 'Pago' : 'Detalle Transaccion' }}</h1>
-      <TransactionForm :loan-history="loanHistorySelected" :loan="loanSelected" :is-payment="isPayment" @close="cancel" />
+      <TransactionForm
+        :loan-history="loanHistorySelected"
+        :loan="loanSelected"
+        :is-payment="isPayment"
+        @close="cancel"
+      />
     </VaModal>
   </VaCard>
 </template>

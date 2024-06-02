@@ -9,7 +9,7 @@
         text-by="name"
         track-by="id"
         :disabled="isLoading"
-        @update:model-value="selectSource"
+        @update:modelValue="selectSource"
       />
     </div>
   </div>
@@ -18,7 +18,7 @@
 import { reactive, ref, watch, onMounted } from 'vue'
 import { useGlobalStore } from '../../../stores/global-store'
 import { useAuthStore } from '../../../stores/auth'
-import { useSources } from "../../sources/composables/useSources"
+import { useSources } from '../../sources/composables/useSources'
 import { Source } from '../../sources/types'
 
 defineProps({
@@ -43,22 +43,20 @@ const defaultSource: Source = {
   isActive: true,
 }
 
-const selectSource = async (selected:Source) => {
+const selectSource = async (selected: Source) => {
   await globalStore.setLoanSource(selected, authStore.user)
 }
 
-
 onMounted(() => {
-  if(globalStore.settings.loanSource){
+  if (globalStore.settings.loanSource) {
     sourceSelected.value = globalStore.settings.loanSource
   }
 })
 
-const { sources, isLoading } = useSources({authParams})
+const { sources, isLoading } = useSources({ authParams })
 const sourceSelected = ref<Source>(defaultSource)
 
 watch(globalStore.settings, () => {
   sourceSelected.value = globalStore.settings.loanSource ?? defaultSource
 })
-
 </script>

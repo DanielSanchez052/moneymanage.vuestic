@@ -38,7 +38,7 @@ const isFormHasUnsavedChanges = computed(() => {
 
 const selectLender = (value: boolean) => {
   islender.value = value
-  newLoan.value.lend = authStore.user?.username ?? "Me"
+  newLoan.value.lend = authStore.user?.username ?? 'Me'
 }
 
 defineExpose({
@@ -48,27 +48,26 @@ defineExpose({
 const required = (v: string | SelectOption) => !!v || 'This field is required'
 
 const saveForm = () => {
-  if(islender != undefined && islender){
+  if (islender.value != undefined && islender) {
     newLoan.value.lend = newLoan.value.accountId
-  }else{
+  } else {
     newLoan.value.borrow = newLoan.value.accountId
   }
 
   emit('save', newLoan.value as NewLoan)
 }
-
 </script>
 
 <template>
   <VaForm v-slot="{ validate }" class="flex flex-col gap-2">
-    <div  class="flex gap-2" >
-      <VaInput :disabled="islender != false" v-model="newLoan.lend" label="Lend" :rules="[required]" />
+    <div class="flex gap-2">
+      <VaInput v-model="newLoan.lend" :disabled="islender != false" label="Lend" :rules="[required]" />
       <div class="flex items-end">
-        <VaButton  id="lend" :disabled="islender != undefined" @click="() => selectLender(true)" >Me</VaButton>
+        <VaButton id="lend" :disabled="islender != undefined" @click="() => selectLender(true)">Me</VaButton>
       </div>
     </div>
     <div class="flex gap-2">
-      <VaInput  :disabled="islender != true"  v-model="newLoan.borrow" label="Borrow" :rules="[required]" />
+      <VaInput v-model="newLoan.borrow" :disabled="islender != true" label="Borrow" :rules="[required]" />
       <div class="flex items-end">
         <VaButton id="borrow" :disabled="islender != undefined" @click="() => selectLender(false)">Me</VaButton>
       </div>

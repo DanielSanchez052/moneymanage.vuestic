@@ -30,7 +30,7 @@ export const serviceConfig = {
     get_budget_by_id: 'api/budget/{0}',
     budget_types: 'api/budget/types',
     loan: 'api/loan',
-    loanFrecuency: "api/loan/frecuency",
+    loanFrecuency: 'api/loan/frecuency',
   },
 }
 

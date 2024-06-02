@@ -34,11 +34,11 @@ const { transaction, getById, isLoading } = useTransactions({
 })
 
 const defaultSource = {
-    id: '0',
-    description: '',
-    name: '',
-    isActive: true,
-  }
+  id: '0',
+  description: '',
+  name: '',
+  isActive: true,
+}
 
 const defaultNewTransaction: Transaction = {
   id: '',
@@ -47,17 +47,19 @@ const defaultNewTransaction: Transaction = {
   source: defaultSource,
   type: {
     id: props.loanHistory?.transactionType.id ?? 0,
-    name: props.loanHistory?.transactionType.name ?? "",
+    name: props.loanHistory?.transactionType.name ?? '',
   },
-  typeName: props.loanHistory?.transactionType.name ?? "",
+  typeName: props.loanHistory?.transactionType.name ?? '',
   sourceName: '',
   isActive: true,
   transactionDate: new Date().toISOString(),
-  transactionExtendedProperties: [{
-    key: "Why",
-    displayName: "why",
-    value: "loan payment"
-  }],
+  transactionExtendedProperties: [
+    {
+      key: 'Why',
+      displayName: 'why',
+      value: 'loan payment',
+    },
+  ],
 }
 
 const currentTransaction = ref<Transaction>(defaultNewTransaction)
@@ -78,11 +80,10 @@ watch(
   { immediate: true },
 )
 
-if(props.isPayment){
+if (props.isPayment) {
   currentTransaction.value.source = globalStore.settings.loanSource ?? defaultSource
   currentTransaction.value.sourceName = globalStore.settings.loanSource?.name ?? defaultSource.name
 }
-
 </script>
 
 <template>
@@ -90,16 +91,8 @@ if(props.isPayment){
     <VaForm class="flex flex-col gap-2">
       <VaInput v-model="currentTransaction.ammount" label="Ammount" mask="numeral" :disabled="!isPayment" />
       <VaDateInput v-model="currentTransaction.transactionDate" label="Transaction Date" :disabled="!isPayment" />
-      <VaInput
-        disabled
-        label="Source"
-        :model-value="currentTransaction.sourceName"
-      />
-      <VaInput
-        disabled
-        label="Type"
-        :model-value="t(`transactions.type.${currentTransaction.typeName}`)"
-      />
+      <VaInput disabled label="Source" :model-value="currentTransaction.sourceName" />
+      <VaInput disabled label="Type" :model-value="t(`transactions.type.${currentTransaction.typeName}`)" />
       <section class="my-2 p-2">
         <h3 class="text-md text-center text-gray-400">{{ t('transactions.moreInfo') }}</h3>
         <div class="overflow-y-auto max-h-72">
@@ -130,7 +123,7 @@ if(props.isPayment){
       </section>
       <div class="flex justify-end flex-col-reverse sm:flex-row mt-4 gap-2">
         <VaButton preset="secondary" color="secondary" @click="$emit('close')">Cancel</VaButton>
-        <VaButton v-if="isPayment" preset="primary" color="primary" >Pay</VaButton>
+        <VaButton v-if="isPayment" preset="primary" color="primary">Pay</VaButton>
       </div>
     </VaForm>
     <div v-if="isLoading" class="absolute top-1/4 left-1/2">

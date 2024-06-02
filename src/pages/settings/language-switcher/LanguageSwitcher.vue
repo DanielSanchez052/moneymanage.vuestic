@@ -7,7 +7,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, watch } from 'vue'
+import { computed } from 'vue'
 
 import { useI18n } from 'vue-i18n'
 import { LanguageMap, useGlobalStore } from '../../../stores/global-store'
@@ -39,5 +39,4 @@ const model = computed({
     globalStore.setLang(languageName[value], authStore.user)
   },
 })
-
 </script>
