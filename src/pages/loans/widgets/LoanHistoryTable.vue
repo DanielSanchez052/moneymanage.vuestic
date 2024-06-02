@@ -31,7 +31,7 @@ defineProps({
 })
 
 const emit = defineEmits<{
-  (event: 'showTransaction', loan: Loan, loanHistory: LoanTransactionHistory): void
+  (event: 'showTransaction', loan: Loan | null, loanHistory: LoanTransactionHistory | null, isPayment: boolean): void
 }>()
 </script>
 
@@ -71,6 +71,7 @@ const emit = defineEmits<{
             icon="payments"
             color="secondary"
             aria-label="Pagar"
+            @click="emit('showTransaction', loan as Loan, loanH as LoanTransactionHistory, true)"
           />
           <VaButton
             v-else
@@ -79,7 +80,7 @@ const emit = defineEmits<{
             icon="account_balance_wallet"
             color="secondary"
             aria-label="Transaccion"
-            @click="emit('showTransaction', loan as Loan, loanH as LoanTransactionHistory)"
+            @click="emit('showTransaction', loan as Loan, loanH as LoanTransactionHistory, false)"
           />
         </div>
       </template>

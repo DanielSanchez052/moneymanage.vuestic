@@ -7,13 +7,15 @@ import LoanHistoryTable from './widgets/LoanHistoryTable.vue'
 import EditLoanForm from './widgets/EditLoanForm.vue'
 import TransactionForm from './widgets/TransactionForm.vue'
 import { Loan, LoanFilters, LoanTransactionHistory, NewLoan } from './types'
-import { useModal } from 'vuestic-ui'
+import { useModal, useToast } from 'vuestic-ui'
 import { TypeProp } from '../../data/types'
 import { useI18n } from 'vue-i18n'
+import { useLoanFrecuency } from './composables/useLoanFrecuency'
 
 const { t } = useI18n()
 const authStore = useAuthStore()
 const loanSelected = ref<Loan | null>(null)
+const isPayment = ref(false)
 const loanHistorySelected = ref<LoanTransactionHistory | null>(null)
 const doShowLoanFormModal = ref(false)
 const doShowTransactionModal = ref(false)
@@ -30,10 +32,12 @@ const authParams = reactive({
   token: authStore.user?.token ?? '',
   accountId: authStore.user?.accountId ?? '',
 })
-const { loans, isLoading, pagination } = useLoans({
+const { loans, isLoading, pagination, add } = useLoans({
   authParams: authParams,
   filters: filters,
 })
+
+const { loanFrecuency } = useLoanFrecuency({authParams})
 
 function setPageSection(section: 'list' | 'detail' = 'detail') {
   pageSection.value = section
@@ -45,10 +49,11 @@ const showMoreInfo = (loan: Loan) => {
   setPageSection('detail')
 }
 
-const showTransactionModal = (loan: Loan, loanHistory: LoanTransactionHistory) => {
+const showTransactionModal = (loan: Loan | null, loanHistory: LoanTransactionHistory | null, isPaymentV: boolean) => {
   loanHistorySelected.value = loanHistory
   loanSelected.value = loan
   doShowTransactionModal.value = true
+  isPayment.value = isPaymentV
 }
 
 const createNewLoan = () => {
@@ -56,25 +61,24 @@ const createNewLoan = () => {
   doShowLoanFormModal.value = true
 }
 
-// const { init: notify } = useToast()
+const { init: notify } = useToast()
 
 const onLoanSaved = async (loan: NewLoan) => {
   doShowLoanFormModal.value = false
-  console.log(loan)
+  const result = await add(loan)
 
-  // const result = await add(loan)
-
-  // if (result?.success) {
-  //   notify({
-  //     message: 'Loan created',
-  //     color: 'success',
-  //   })
-  // } else {
-  //   notify({
-  //     message: `Has error occurred on Budget creation`,
-  //     color: 'danger',
-  //   })
-  // }
+  if (result?.success) {
+    notify({
+      message: 'Loan created',
+      color: 'success',
+    })
+  } else {
+    const messages = result?.errors.flatMap((item) => item.message).join(',')
+    notify({
+      message: `Has error occurred on Loan creation: ${messages}`,
+      color: 'danger',
+    })
+  }
 }
 
 const { confirm } = useModal()
@@ -144,7 +148,7 @@ const defaultType: TypeProp = {
       <h1 class="va-h5 mb-4">{{ t('loans.add') }}</h1>
       <EditLoanForm
         ref="editFormRef"
-        :frecuency-list="[defaultType]"
+        :frecuency-list="loanFrecuency"
         @close="cancel"
         @save="
           (budget) => {
@@ -163,8 +167,8 @@ const defaultType: TypeProp = {
       stateful
       hide-default-actions
     >
-      <h1 class="va-h5 mb-4">{{ t('loans.add') }}</h1>
-      <TransactionForm :loan-history="loanHistorySelected" :loan="loanSelected" @close="cancel" />
+      <h1 class="va-h5 mb-4">{{ isPayment ? 'Pago' : 'Detalle Transaccion' }}</h1>
+      <TransactionForm :loan-history="loanHistorySelected" :loan="loanSelected" :is-payment="isPayment" @close="cancel" />
     </VaModal>
   </VaCard>
 </template>

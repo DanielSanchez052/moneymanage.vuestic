@@ -1,7 +1,7 @@
 import { ref, reactive } from 'vue'
 import { AuthenticationParams, TypeProp } from '../../../data/types'
 import { watchIgnorable } from '@vueuse/core'
-import BudgetService from '../../../api/budget/budget.service'
+import LoanService from '../../../api/loan/loan.service'
 
 const makeAuthParamsRef = () =>
   reactive({
@@ -9,16 +9,16 @@ const makeAuthParamsRef = () =>
     token: '',
   })
 
-export const useBudgetTypes = (options?: { authParams?: AuthenticationParams }) => {
+export const useLoanFrecuency = (options?: { authParams?: AuthenticationParams }) => {
   const isLoading = ref(false)
-  const budgetTypes = ref<TypeProp[]>([])
+  const loanFrecuency = ref<TypeProp[]>([])
 
   const { authParams = makeAuthParamsRef() } = options ?? {}
 
   const fetch = async () => {
     isLoading.value = true
-    const result = await BudgetService.GetBudgetTypes(authParams.token)
-    budgetTypes.value = result.data as TypeProp[]
+    const result = await LoanService.getLoanFrecuency(authParams.token)
+    loanFrecuency.value = result.data as TypeProp[]
 
     ignoreUpdates(() => {
       // pagination.value = newPagination
@@ -33,7 +33,7 @@ export const useBudgetTypes = (options?: { authParams?: AuthenticationParams }) 
 
   return {
     isLoading,
-    budgetTypes,
+    loanFrecuency,
     fetch,
     authParams,
   }

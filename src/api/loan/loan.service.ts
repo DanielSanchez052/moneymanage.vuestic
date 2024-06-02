@@ -1,5 +1,5 @@
 import { ApiResponse, Pagination } from '../../data/types'
-import { LoanFilters } from '../../pages/loans/types'
+import { LoanFilters, NewLoan } from '../../pages/loans/types'
 import httpClient from '../http_client'
 import settings from '../services.config'
 
@@ -24,6 +24,42 @@ class LoanService {
       .then((res) => {
         return res
       })
+  }
+
+  async getLoanFrecuency(accessToken: string) {
+    return httpClient
+      .get<any, ApiResponse>(settings.moneyManageApi.BaseUrl + settings.moneyManageApi.loanFrecuency, {
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+        },
+        responseType: 'json',
+      })
+      .then((res) => {
+        return res
+      })
+  }
+
+  async CreateLoan(accessToken: string, accountId: string, loan: NewLoan) {
+    try {
+      const res = await httpClient.post<any, ApiResponse>(
+        settings.moneyManageApi.BaseUrl + settings.moneyManageApi.loan,
+        {
+          accountId: accountId,
+          borrow: loan.borrow,
+          lend: loan.lend,
+          ammountBorrowed: loan.ammountBorrowed,
+          percentage: loan.percentage,
+          paymentFrecuency: loan.paymentFrecuency.id,
+          periodCount: loan.periodCount,
+        },
+        {
+          headers: { Authorization: 'Bearer ' + accessToken },
+        },
+      )
+      return res
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 

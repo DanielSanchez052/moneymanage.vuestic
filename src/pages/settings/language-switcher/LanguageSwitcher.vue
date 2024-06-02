@@ -7,10 +7,11 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 
 import { useI18n } from 'vue-i18n'
 import { LanguageMap, useGlobalStore } from '../../../stores/global-store'
+import { useAuthStore } from '../../../stores/auth'
 
 defineProps({
   text: {
@@ -19,6 +20,7 @@ defineProps({
   },
 })
 
+const authStore = useAuthStore()
 const globalStore = useGlobalStore()
 
 const { locale } = useI18n()
@@ -34,7 +36,8 @@ const model = computed({
     return globalStore.languageCodes[locale.value]
   },
   set(value) {
-    globalStore.setLang(languageName[value])
+    globalStore.setLang(languageName[value], authStore.user)
   },
 })
+
 </script>

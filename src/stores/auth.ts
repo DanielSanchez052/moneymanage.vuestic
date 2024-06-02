@@ -66,6 +66,8 @@ export const useAuthStore = defineStore('auth', {
       this.status.loggedIn = false
       this.user = null
       this.account = null
+      localStorage.clear()
+      localStorage.setItem('settings', '{"lang":"es","theme":"dark"}')
     },
     async register(user: NewUser) {
       return AuthService.register(user)

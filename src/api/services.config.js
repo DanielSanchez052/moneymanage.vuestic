@@ -16,6 +16,7 @@ export const serviceConfig = {
     signalRHubUrl: 'wss://dev-moneymanage.originalcoin.online/notifications-hub',
     account: 'api/account',
     balance_account: 'api/account/{0}/balance',
+    settings: 'api/account/settings',
     account_status: 'api/account/status',
     transaction: 'api/transaction',
     delete_transaction: 'api/transaction/{0}',
@@ -29,6 +30,7 @@ export const serviceConfig = {
     get_budget_by_id: 'api/budget/{0}',
     budget_types: 'api/budget/types',
     loan: 'api/loan',
+    loanFrecuency: "api/loan/frecuency",
   },
 }
 

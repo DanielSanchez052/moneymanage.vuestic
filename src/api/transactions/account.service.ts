@@ -21,6 +21,24 @@ class AccountService {
         return res
       })
   }
+
+  async SetSettings(accessToken: string, accountId: string, settingsString: string) {
+    try {
+      const res = await httpClient.post<any, ApiResponse>(
+        settings.moneyManageApi.BaseUrl + settings.moneyManageApi.settings,
+        {
+          accountId: accountId,
+          accountSettigs: settingsString,
+        },
+        {
+          headers: { Authorization: 'Bearer ' + accessToken },
+        },
+      )
+      return res
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
 export default new AccountService()

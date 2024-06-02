@@ -130,7 +130,8 @@
     "dashboard": "Dashboard",
     "transactions": "Transactions",
     "sources": "Sources",
-    "budgets": "Budgets"
+    "budgets": "Budgets",
+    "loans": "Loans"
   },
   "messages": {
     "all": "See all messages",

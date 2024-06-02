@@ -63,8 +63,6 @@ export const useLoans = (options?: {
         loanTransactionHistory: converted,
       }
     })
-    console.log(resultConverted)
-
     loans.value.items = []
     loans.value.items.push(...resultConverted)
   }
@@ -80,14 +78,14 @@ export const useLoans = (options?: {
 
     async add(loan: Omit<NewLoan, 'id'>) {
       isLoading.value = true
-      console.log(loan)
-      // budget.startDate = new Date(budget.startDate).toISOString()
-      // const result = await LoanService.CreateBudget(authParams.token, authParams.accountId, budget)
-      // if (result?.success) {
-      //   await fetch()
-      // }
+
+      const result = await LoanService.CreateLoan(authParams.token, authParams.accountId, loan)
+      console.log(result)
+      if (result?.success) {
+        await fetch()
+      }
       isLoading.value = false
-      // return result
+      return result
     },
 
     pagination,
