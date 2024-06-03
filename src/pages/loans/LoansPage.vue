@@ -32,7 +32,7 @@ const authParams = reactive({
   token: authStore.user?.token ?? '',
   accountId: authStore.user?.accountId ?? '',
 })
-const { loans, isLoading, pagination, add, pay } = useLoans({
+const { loans, isLoading, pagination, add, pay, fetch } = useLoans({
   authParams: authParams,
   filters: filters,
 })
@@ -102,6 +102,7 @@ const onPayment = async (transaction: Transaction, loan: string, loanhistory: st
 
 const onPaymentUpdate = async () => {
   doShowTransactionModal.value = false
+  await fetch()
   setPageSection('list')
 }
 const { confirm } = useModal()

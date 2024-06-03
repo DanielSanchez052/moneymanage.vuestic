@@ -6,7 +6,7 @@ import { useAuthStore } from '../../../stores/auth'
 import { useGlobalStore } from '../../../stores/global-store'
 import { useI18n } from 'vue-i18n'
 import { Loan, LoanTransactionHistory } from '../types'
-import { useToast } from 'vuestic-ui'
+import { SelectOption, useToast } from 'vuestic-ui'
 const { t } = useI18n()
 
 const globalStore = useGlobalStore()
@@ -133,12 +133,14 @@ const isEnabledAmmount = computed(
     !props.isPayment ||
     (props.loanHistory != undefined && props.loanHistory?.ammoundPaid < props.loanHistory?.ammountToPay),
 )
+
+const maxAmmount = (v: string | SelectOption) => Number(v) <= (props.loanHistory?.ammountToPay ?? 0) || 'Max ammount allowed is '+ props.loanHistory?.ammountToPay
 </script>
 
 <template>
   <div class="relative">
     <VaForm class="flex flex-col gap-2">
-      <VaInput v-model="currentTransaction.ammount" label="Ammount" mask="numeral" :disabled="!isEnabledAmmount" />
+      <VaInput v-model="currentTransaction.ammount" label="Ammount" mask="numeral" :rules="[maxAmmount]" :disabled="!isEnabledAmmount" />
       <VaDateInput v-model="currentTransaction.transactionDate" label="Transaction Date" :disabled="!isPayment" />
       <VaInput disabled label="Source" :model-value="currentTransaction.sourceName" />
       <VaInput disabled label="Type" :model-value="t(`transactions.type.${currentTransaction.typeName}`)" />
