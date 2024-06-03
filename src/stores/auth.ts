@@ -46,7 +46,7 @@ export const useAuthStore = defineStore('auth', {
       }
 
       try {
-        const response = await AccountService.GetAccountById(this.user?.token ?? '', this.user?.accountId ?? '')
+        const response = await AccountService.GetAccountById(this.user?.token ?? '')
 
         if (!response.success) {
           this.account = null
@@ -66,6 +66,8 @@ export const useAuthStore = defineStore('auth', {
       this.status.loggedIn = false
       this.user = null
       this.account = null
+      localStorage.clear()
+      localStorage.setItem('settings', '{"lang":"es","theme":"dark"}')
     },
     async register(user: NewUser) {
       return AuthService.register(user)

@@ -51,9 +51,11 @@ import { validators, objectKeysToCamellCase } from '../../services/utils'
 import { Login } from './types'
 import { useAuthStore } from '../../stores/auth'
 import { useNotificationsStore } from '../../stores/notifications'
+import { useGlobalStore } from '../../stores/global-store'
 import { ErrorType } from '../../data/types'
 import { useI18n } from 'vue-i18n'
 
+const globalStore = useGlobalStore()
 const authStore = useAuthStore()
 const notificationHub = useNotificationsStore()
 const { validate } = useForm('form')
@@ -81,6 +83,8 @@ const submit = async () => {
     authStore.login(formData).then(
       () => {
         notificationHub.startSignalR(authStore?.user?.token ?? '')
+
+        globalStore.setConfig(authStore.account?.accountSettings)
 
         notificationHub.signalOn('accountBalanced', async (message: string) => {
           try {

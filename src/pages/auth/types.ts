@@ -25,10 +25,17 @@ export type RecoverPassword = {
 export type User = {
   token: string
   accountId: string
+  email: string
+  phone: string
+  username: string
+  userId: string
 }
 
 export type Account = {
   id: string
   status: string
   ammountBalance: number
+  accountSettings: string
+  isActive: boolean
+  userId: string
 }

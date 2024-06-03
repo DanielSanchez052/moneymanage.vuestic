@@ -1,5 +1,6 @@
 import { AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios'
 import type { ChartData } from 'chart.js'
+import { Source } from '../pages/sources/types'
 
 export type ColorThemes = {
   [key: string]: string
@@ -66,6 +67,7 @@ export enum TransactionType {
 export type Settings = {
   theme: string
   lang: string
+  loanSource?: Source
 }
 
 export type DateRange = {

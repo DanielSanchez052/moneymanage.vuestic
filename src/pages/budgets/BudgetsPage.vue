@@ -163,7 +163,7 @@ const defaultType: TypeProp = {
     <VaModal
       v-slot="{ cancel, ok }"
       v-model="doShowBudgetFormModal"
-      size="large"
+      size="small"
       mobile-fullscreen
       close-button
       stateful

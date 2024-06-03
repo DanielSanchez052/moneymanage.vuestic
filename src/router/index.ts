@@ -33,6 +33,12 @@ const routes: Array<RouteRecordRaw> = [
         meta: { requiresAuth: true },
       },
       {
+        name: 'loans',
+        path: 'loans',
+        component: () => import('../pages/loans/LoansPage.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
         name: 'sources',
         path: 'sources',
         component: () => import('../pages/sources/SourcesPage.vue'),

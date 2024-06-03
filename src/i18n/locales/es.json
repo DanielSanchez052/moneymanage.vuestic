@@ -9,7 +9,8 @@
       "all": "Todos",
       "revenue": "Ganado",
       "spend": "Gastado",
-      "movement": "Movimiento"
+      "movement": "Movimiento",
+      "undefined": "No Definido"
     },
     "table": {
       "ammount": "MONTO",
@@ -49,6 +50,26 @@
       "active": "ACTIVO"
     },
     "moreInfo": "Mas Informacion"
+  },
+  "loans": {
+    "tittle": "Prestado",
+    "add": "Agregar ",
+    "table": {
+      "lend": "Quien",
+      "borrow": "A quien",
+      "ammountBorrowed": "Cuanto",
+      "paymentFrecuencyName": "Frecuencia",
+      "percentage": "Porcentaje",
+      "paid": "Pagó"
+    },
+    "history-table": {
+      "paymentDate": "Fecha Pago",
+      "transaction": "Transaccion realizada",
+      "transactionTypeName": "Tipo Transaccion",
+      "ammountToPay": "A Pagar",
+      "ammoundPaid": "Pagado",
+      "generated": "Generado"
+    }
   },
   "sources": {
     "tittle": "Fuentes",
@@ -110,7 +131,8 @@
     "dashboard": "Tablero",
     "transactions": "Transacciones",
     "sources": "Fuentes",
-    "budgets": "Presupuestos"
+    "budgets": "Presupuestos",
+    "loans": "Prestado"
   },
   "messages": {
     "all": "Ver todos los mensajes",

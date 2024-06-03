@@ -8,6 +8,7 @@
     <div class="flex flex-col p-4 space-y-4 bg-backgroundSecondary rounded-lg">
       <h3 class="h3">General preferences</h3>
       <LanguageSwitcher />
+      <LoanSourceSwitcher />
     </div>
     <VaAlert class="rounded-lg p-4 m-0" closeable color="info">
       <template #icon>
@@ -25,4 +26,5 @@
 import LanguageSwitcher from './language-switcher/LanguageSwitcher.vue'
 import ThemeSwitcher from '../../components/settings/theme-switcher/ThemeSwitcher.vue'
 import Notifications from './notifications/Notifications.vue'
+import LoanSourceSwitcher from './loan-source-switcher/LoanSourceSwitcher.vue'
 </script>

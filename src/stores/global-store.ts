@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 import { Settings } from '../data/types'
 import { useI18n } from 'vue-i18n'
+import AccountService from '../api/transactions/account.service'
+import { User } from '../pages/auth/types'
+import { Source } from '../pages/sources/types'
 
 export type LanguageMap = Record<string, string>
 
@@ -36,14 +39,39 @@ export const useGlobalStore = defineStore('global', {
     toggleSidebar() {
       this.isSidebarMinimized = !this.isSidebarMinimized
     },
-    setTheme(theme: string) {
+    async setTheme(theme: string, user: User | null) {
       this.settings.theme = theme
       localStorage.setItem('settings', JSON.stringify(settings))
+      if (user != null) {
+        await AccountService.SetSettings(user.token, user.accountId, JSON.stringify(this.settings))
+      }
     },
-    setLang(lang: string) {
+
+    setConfig(config: string | undefined) {
+      if (config != undefined) {
+        this.settings = JSON.parse(config)
+        this.locale = this.settings.lang
+        localStorage.setItem('settings', JSON.stringify(this.settings))
+      } else {
+        this.settings = { lang: 'es', theme: 'dark' }
+      }
+    },
+
+    async setLang(lang: string, user: User | null) {
       this.settings.lang = lang
       this.locale = lang
-      localStorage.setItem('settings', JSON.stringify(settings))
+      localStorage.setItem('settings', JSON.stringify(this.settings))
+      if (user != null) {
+        await AccountService.SetSettings(user.token, user.accountId, JSON.stringify(this.settings))
+      }
+    },
+
+    async setLoanSource(source: Source, user: User | null) {
+      this.settings.loanSource = source
+      localStorage.setItem('settings', JSON.stringify(this.settings))
+      if (user != null) {
+        await AccountService.SetSettings(user.token, user.accountId, JSON.stringify(this.settings))
+      }
     },
   },
 })

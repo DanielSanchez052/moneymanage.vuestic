@@ -39,6 +39,13 @@ export default {
         icon: 'local_atm',
       },
     },
+    {
+      name: 'loans',
+      displayName: 'menu.loans',
+      meta: {
+        icon: 'local_atm',
+      },
+    },
     // {
     //   name: 'preferences',
     //   displayName: 'menu.preferences',

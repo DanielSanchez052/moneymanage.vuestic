@@ -169,6 +169,7 @@ const defaultType: TypeProp = {
             :placeholder="t('menu.sources')"
             text-by="name"
             track-by="id"
+            searchable
             :options="[defaultSource, ...sources]"
           >
             <template #content="{ value: source }">
