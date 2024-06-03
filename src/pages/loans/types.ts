@@ -41,3 +41,10 @@ export type LoanTransactionHistory = {
   ammoundPaid: number
   generated: boolean
 }
+
+export type PaidLoan = {
+  transactionId: string
+  loanId: string
+  loanHistoryId: string
+  ammount: number
+}

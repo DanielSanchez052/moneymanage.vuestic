@@ -1,5 +1,5 @@
 import { ApiResponse, Pagination } from '../../data/types'
-import { LoanFilters, NewLoan } from '../../pages/loans/types'
+import { LoanFilters, NewLoan, PaidLoan } from '../../pages/loans/types'
 import httpClient from '../http_client'
 import settings from '../services.config'
 
@@ -59,6 +59,26 @@ class LoanService {
       return res
     } catch (error) {
       console.error(error)
+    }
+  }
+
+  async SetPaid(accessToken: string, accountId: string, payment: PaidLoan) {
+    try {
+      const res = await httpClient.post<any, ApiResponse>(
+        settings.moneyManageApi.BaseUrl + settings.moneyManageApi.loanPaid,
+        {
+          transactionId: payment.transactionId,
+          loanId: payment.loanId,
+          loanHistoryId: payment.loanHistoryId,
+          ammount: payment.ammount,
+        },
+        {
+          headers: { Authorization: 'Bearer ' + accessToken },
+        },
+      )
+      return res
+    } catch (error) {
+      console.log(error)
     }
   }
 }

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
-import { Transaction } from '../../transactions/types'
+import { reactive, ref, watch, computed } from 'vue'
+import { Transaction, NewTransaction } from '../../transactions/types'
 import { useTransactions } from '../../transactions/composables/useTransactions'
 import { useAuthStore } from '../../../stores/auth'
 import { useGlobalStore } from '../../../stores/global-store'
 import { useI18n } from 'vue-i18n'
 import { Loan, LoanTransactionHistory } from '../types'
-
+import { useToast } from 'vuestic-ui'
 const { t } = useI18n()
 
 const globalStore = useGlobalStore()
@@ -23,15 +23,19 @@ const props = defineProps<{
   isPayment: boolean
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
+  (event: 'paymentUpdated'): void
+  (event: 'pay', transaction: Transaction, loan: string, loanhistory: string): void
   (event: 'close'): void
 }>()
 
-const { transaction, getById, isLoading } = useTransactions({
+const { transaction, getById, isLoading, add, update } = useTransactions({
   authParams: authParams,
   transactionId: props.loanHistory?.transactionId ?? '',
   initialFetch: false,
 })
+
+const { init: notify } = useToast()
 
 const defaultSource = {
   id: '0',
@@ -43,7 +47,7 @@ const defaultSource = {
 const defaultNewTransaction: Transaction = {
   id: '',
   accountId: authStore.user?.accountId ?? '',
-  ammount: 0,
+  ammount: props.loanHistory?.ammountToPay ?? 0,
   source: defaultSource,
   type: {
     id: props.loanHistory?.transactionType.id ?? 0,
@@ -84,12 +88,57 @@ if (props.isPayment) {
   currentTransaction.value.source = globalStore.settings.loanSource ?? defaultSource
   currentTransaction.value.sourceName = globalStore.settings.loanSource?.name ?? defaultSource.name
 }
+
+const setPayment = async () => {
+  if (props.loan != null && props.loanHistory != null) {
+    if (!props.loanHistory.transactionId) {
+      const newTransaction: NewTransaction = {
+        accountId: currentTransaction.value.accountId,
+        ammount: currentTransaction.value.ammount,
+        sourceId: currentTransaction.value.source.id,
+        type: currentTransaction.value.type.id,
+        transactionDate: currentTransaction.value.transactionDate,
+        transactionExtendedProperties: currentTransaction.value.transactionExtendedProperties,
+      }
+
+      const transaction = await add(newTransaction)
+
+      emit('pay', transaction, props.loan.loanId, props.loanHistory.id)
+    } else {
+      try {
+        await update(currentTransaction.value)
+        emit('paymentUpdated')
+      } catch (err) {
+        notify({
+          message: `${err}`,
+          color: 'danger',
+        })
+      }
+
+      notify({
+        message: 'Payment Updated',
+        color: 'success',
+      })
+    }
+  } else {
+    notify({
+      message: `Has error occurred on Payment`,
+      color: 'danger',
+    })
+  }
+}
+
+const isEnabledAmmount = computed(
+  () =>
+    !props.isPayment ||
+    (props.loanHistory != undefined && props.loanHistory?.ammoundPaid < props.loanHistory?.ammountToPay),
+)
 </script>
 
 <template>
   <div class="relative">
     <VaForm class="flex flex-col gap-2">
-      <VaInput v-model="currentTransaction.ammount" label="Ammount" mask="numeral" :disabled="!isPayment" />
+      <VaInput v-model="currentTransaction.ammount" label="Ammount" mask="numeral" :disabled="!isEnabledAmmount" />
       <VaDateInput v-model="currentTransaction.transactionDate" label="Transaction Date" :disabled="!isPayment" />
       <VaInput disabled label="Source" :model-value="currentTransaction.sourceName" />
       <VaInput disabled label="Type" :model-value="t(`transactions.type.${currentTransaction.typeName}`)" />
@@ -123,7 +172,7 @@ if (props.isPayment) {
       </section>
       <div class="flex justify-end flex-col-reverse sm:flex-row mt-4 gap-2">
         <VaButton preset="secondary" color="secondary" @click="$emit('close')">Cancel</VaButton>
-        <VaButton v-if="isPayment" preset="primary" color="primary">Pay</VaButton>
+        <VaButton v-if="isEnabledAmmount" preset="primary" color="primary" @click="setPayment">Pay</VaButton>
       </div>
     </VaForm>
     <div v-if="isLoading" class="absolute top-1/4 left-1/2">

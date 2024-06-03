@@ -1,8 +1,9 @@
 import { Ref, ref, unref, reactive } from 'vue'
 import { Pagination, PaginatedResult, AuthenticationParams } from '../../../data/types'
-import { Loan, LoanFilters, LoanTransactionHistory, NewLoan } from '../types'
+import { Loan, LoanFilters, LoanTransactionHistory, NewLoan, PaidLoan } from '../types'
 import { watchIgnorable } from '@vueuse/core'
 import LoanService from '../../../api/loan/loan.service'
+import { Transaction } from '../../transactions/types'
 
 const makePaginationRef = () => ref<Pagination>({ PageIndex: 1, PageSize: 10 })
 const makeFiltersRef = () =>
@@ -80,7 +81,25 @@ export const useLoans = (options?: {
       isLoading.value = true
 
       const result = await LoanService.CreateLoan(authParams.token, authParams.accountId, loan)
-      console.log(result)
+
+      if (result?.success) {
+        await fetch()
+      }
+      isLoading.value = false
+      return result
+    },
+
+    async pay(transaction: Transaction, loanId: string, loanhistoryId: string) {
+      isLoading.value = true
+
+      const payment: PaidLoan = {
+        ammount: transaction.ammount,
+        transactionId: transaction.id,
+        loanHistoryId: loanhistoryId,
+        loanId: loanId,
+      }
+
+      const result = await LoanService.SetPaid(authParams.token, authParams.accountId, payment)
       if (result?.success) {
         await fetch()
       }

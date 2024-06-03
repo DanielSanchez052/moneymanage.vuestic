@@ -10,6 +10,7 @@ import { Loan, LoanFilters, LoanTransactionHistory, NewLoan } from './types'
 import { useModal, useToast } from 'vuestic-ui'
 import { useI18n } from 'vue-i18n'
 import { useLoanFrecuency } from './composables/useLoanFrecuency'
+import { Transaction } from '../transactions/types'
 
 const { t } = useI18n()
 const authStore = useAuthStore()
@@ -31,7 +32,7 @@ const authParams = reactive({
   token: authStore.user?.token ?? '',
   accountId: authStore.user?.accountId ?? '',
 })
-const { loans, isLoading, pagination, add } = useLoans({
+const { loans, isLoading, pagination, add, pay } = useLoans({
   authParams: authParams,
   filters: filters,
 })
@@ -80,6 +81,29 @@ const onLoanSaved = async (loan: NewLoan) => {
   }
 }
 
+const onPayment = async (transaction: Transaction, loan: string, loanhistory: string) => {
+  doShowTransactionModal.value = false
+
+  const result = await pay(transaction, loan, loanhistory)
+  if (result?.success) {
+    setPageSection('list')
+    notify({
+      message: 'Payment Completed',
+      color: 'success',
+    })
+  } else {
+    const messages = result?.errors.flatMap((item) => item.message).join(',')
+    notify({
+      message: `Has error occurred on Payment: ${messages}`,
+      color: 'danger',
+    })
+  }
+}
+
+const onPaymentUpdate = async () => {
+  doShowTransactionModal.value = false
+  setPageSection('list')
+}
 const { confirm } = useModal()
 
 const editFormRef = ref()
@@ -166,6 +190,8 @@ const beforeEditFormModalClose = async (hide: () => unknown) => {
         :loan-history="loanHistorySelected"
         :loan="loanSelected"
         :is-payment="isPayment"
+        @pay="onPayment"
+        @paymentUpdated="onPaymentUpdate"
         @close="cancel"
       />
     </VaModal>

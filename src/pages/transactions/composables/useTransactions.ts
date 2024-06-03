@@ -101,10 +101,11 @@ export const useTransactions = (options?: {
     async add(transaction: Omit<NewTransaction, 'id'>) {
       isLoading.value = true
 
-      await TransactionService.CreateTransaction(authParams.token, authParams.accountId, transaction)
+      const res = await TransactionService.CreateTransaction(authParams.token, authParams.accountId, transaction)
 
       await fetch()
       isLoading.value = false
+      return res?.data as Transaction
     },
 
     async update(transaction: Transaction) {
