@@ -81,8 +81,8 @@ const submit = async () => {
 
   if (validate()) {
     authStore.login(formData).then(
-      () => {
-        notificationHub.startSignalR(authStore?.user?.token ?? '')
+      async () => {
+        await notificationHub.startSignalR(authStore?.user?.token ?? '')
 
         globalStore.setConfig(authStore.account?.accountSettings)
 

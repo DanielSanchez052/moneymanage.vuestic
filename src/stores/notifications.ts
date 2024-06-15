@@ -17,10 +17,6 @@ export const useNotificationsStore = defineStore('notifications', {
   },
   actions: {
     async startSignalR(jwtToken: string) {
-      if (this.connection == null) {
-        return
-      }
-
       this.connection = this.createConnection({
         url: settings.moneyManageApi.signalRHubUrl,
         token: jwtToken,
