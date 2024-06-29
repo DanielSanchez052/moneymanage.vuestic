@@ -62,6 +62,7 @@ export const useNotificationsStore = defineStore('notifications', {
           transport: HttpTransportType.WebSockets,
           withCredentials: true,
         })
+        .withAutomaticReconnect()
         .configureLogging(LogLevel.Information)
         .build()
     },
