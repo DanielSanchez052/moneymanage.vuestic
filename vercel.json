@@ -22,7 +22,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com ; img-src 'self'; frame-src 'self'; connect-src 'self' https://mnw9y2xpf0.execute-api.us-east-1.amazonaws.com https://dev-moneymanage.originalcoin.online  wss://dev-moneymanage.originalcoin.online"
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com ; img-src 'self'; frame-src 'self'; connect-src 'self' https://dev-moneymanage-identity.originalcoin.online https://dev-moneymanage.originalcoin.online  wss://dev-moneymanage.originalcoin.online"
         },
         {
           "key": "Referrer-Policy",
