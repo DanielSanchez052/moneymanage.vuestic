@@ -3,6 +3,7 @@ import { Pagination, PaginatedResult, AuthenticationParams } from '../../../data
 import { Transaction, TransactionFilters, NewTransaction } from '../types'
 import { watchIgnorable } from '@vueuse/core'
 import TransactionService from '../../../api/transactions/transactions.service'
+import { useI18n } from 'vue-i18n'
 
 const makePaginationRef = () => ref<Pagination>({ PageIndex: 1, PageSize: 10 })
 const makeFiltersRef = () =>
@@ -36,6 +37,8 @@ export const useTransactions = (options?: {
     pageSize: 0,
   })
 
+  const { t } = useI18n()
+
   const transaction = ref<Transaction>()
 
   const { pagination = makePaginationRef() } = options ?? {}
@@ -49,10 +52,15 @@ export const useTransactions = (options?: {
 
     transactions.value = result.data as PaginatedResult<Transaction>
 
-    const mapped: Transaction[] = transactions.value.items.map((t) => ({
-      ...t,
-      typeName: t.type?.name ?? '',
-      sourceName: t.source?.name ?? '',
+    const mapped: Transaction[] = transactions.value.items.map((tr) => ({
+      ...tr,
+      typeName: t(`transactions.type.${tr.type?.name}`) ?? '',
+      sourceName: tr.source?.name ?? '',
+      type: {
+        id: tr.type.id,
+        name: tr.type.name,
+        nameT: t(`transactions.type.${tr.type?.name}`),
+      },
     }))
 
     transactions.value.items = []
@@ -70,12 +78,15 @@ export const useTransactions = (options?: {
 
     transaction.value = result.data as Transaction
 
-    console.log(result.data)
-
     const mapped: Transaction = {
       ...transaction.value,
-      typeName: transaction.value.type?.name ?? '',
+      typeName: t(`transactions.type.${transaction.value.type?.name}`) ?? '',
       sourceName: transaction.value.source?.name ?? '',
+      type: {
+        id: transaction.value.type.id,
+        name: transaction.value.type.name,
+        nameT: t(`transactions.type.${transaction.value.type?.name}`),
+      },
     }
 
     transaction.value = mapped

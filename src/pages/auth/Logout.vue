@@ -15,7 +15,6 @@ async function logOut() {
 }
 
 onMounted(async () => {
-  console.log('mounted')
   await logOut()
 })
 </script>

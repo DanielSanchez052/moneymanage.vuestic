@@ -54,7 +54,7 @@ const totalPages = computed(() => Math.ceil(props.budgets.totalCount / props.pag
         </div>
       </template>
       <template #cell(targetTypeName)="{ rowData: budget }">
-        <TransactionTypeBadge :status="budget.targetTypeName" />
+        <TransactionTypeBadge :status-name="budget.targetType.nameT" :status="budget.targetType.name" />
       </template>
       <template #cell(isActive)="{ rowData: budget }">
         <BooleanBadge :status="budget.isActive" />

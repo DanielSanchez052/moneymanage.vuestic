@@ -138,23 +138,14 @@ const beforeMoreInfoClose = async (hide: () => unknown) => {
 const defaultSource: Source = {
   id: '0',
   description: 'Todos',
-  name: 'Todos',
+  name: t('transactions.type.all'),
   isActive: true,
 }
 const defaultType: TypeProp = {
   id: 0,
   name: 'all',
+  nameT: t('transactions.type.all') ?? '',
 }
-
-// const formatFn = (date: DateInputRange<Date>): string => {
-//   const start =
-//     date.start != undefined ? `${date.start?.getDate()}/${date.start?.getMonth() + 1}/${date.start?.getFullYear()}` : ''
-
-//   const end =
-//     date.end != undefined ? `${date.end?.getDate()}/${date.end?.getMonth() + 1}/${date.end?.getFullYear()}` : ''
-
-//   return `${start} - ${end}`
-// }
 </script>
 
 <template>
@@ -187,7 +178,7 @@ const defaultType: TypeProp = {
           >
             <template #content="{ value: type }">
               <div v-if="type" :key="type.id" class="flex items-center gap-1 mr-4">
-                {{ t(`transactions.type.${type.name}`) }}
+                {{ type.nameT }}
               </div>
             </template>
           </VaSelect>

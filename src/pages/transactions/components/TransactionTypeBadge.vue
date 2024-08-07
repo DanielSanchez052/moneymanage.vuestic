@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-
-const { t } = useI18n()
-
 defineProps({
+  statusName: {
+    type: String,
+    required: true,
+  },
   status: {
     type: String,
     required: true,
@@ -19,5 +19,5 @@ const badgeColorMap: Record<string, string> = {
 </script>
 
 <template>
-  <VaBadge square :color="badgeColorMap[$props.status]" :text="t(`transactions.type.${status}`)" />
+  <VaBadge square :color="badgeColorMap[$props.status]" :text="statusName" />
 </template>

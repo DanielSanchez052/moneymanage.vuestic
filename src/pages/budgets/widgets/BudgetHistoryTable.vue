@@ -46,7 +46,7 @@ defineProps({
         </div>
       </template>
       <template #cell(targetTypeName)="{ rowData: budgetE }">
-        <TransactionTypeBadge :status="budgetE.targetType.name" />
+        <TransactionTypeBadge :status-name="budgetE.targetType.nameT" :status="budgetE.targetType.name" />
       </template>
       <template #cell(isActive)="{ rowData: budgetE }">
         <BooleanBadge :status="budgetE.isActive" />
