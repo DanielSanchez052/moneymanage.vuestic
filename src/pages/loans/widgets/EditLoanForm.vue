@@ -78,14 +78,14 @@ const saveForm = () => {
     <VaSelect
       v-model="newLoan.paymentFrecuency"
       label="Frecuencia"
-      text-by="name"
+      text-by="nameT"
       track-by="id"
       :rules="[required]"
       :options="frecuencyList"
     >
-      <template #content="{ value: user }">
-        <div v-if="user" :key="user.id" class="flex items-center gap-1 mr-4">
-          {{ user.name }}
+      <template #content="{ value: frecuency }">
+        <div v-if="frecuency" :key="frecuency.id" class="flex items-center gap-1 mr-4">
+          {{ frecuency.nameT }}
         </div>
       </template>
     </VaSelect>

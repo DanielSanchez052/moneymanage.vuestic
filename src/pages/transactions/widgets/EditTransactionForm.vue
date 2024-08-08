@@ -116,15 +116,15 @@ const uniqueKeyField = (v: string) =>
     <VaSelect
       v-model="newTransaction.type"
       :label="t('transactions.typeFilter')"
-      text-by="name"
+      text-by="nameT"
       track-by="id"
       :rules="[required]"
       :options="types"
       :disabled="props.action == 'update'"
     >
-      <template #content="{ value: user }">
-        <div v-if="user" :key="user.id" class="flex items-center gap-1 mr-4">
-          {{ user.name }}
+      <template #content="{ value: type }">
+        <div v-if="type" :key="type.id" class="flex items-center gap-1 mr-4">
+          {{ type.nameT }}
         </div>
       </template>
     </VaSelect>

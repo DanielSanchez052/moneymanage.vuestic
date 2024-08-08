@@ -28,7 +28,7 @@ const defaultNewBudget: NewBudget = {
   source: props.sources[0],
   targetType: props.transactiontypes[0],
   budgetType: props.types[0],
-  startDate: new Date().toString(),
+  startDate: new Date().toISOString(),
 }
 
 const newBudget = ref({ ...defaultNewBudget })
@@ -45,7 +45,7 @@ defineExpose({
 
 const formatFn = (value: any): string => {
   const date = new Date(value)
-  return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 }
 
 const required = (v: string | SelectOption) => !!v || 'This field is required'
@@ -72,28 +72,28 @@ const required = (v: string | SelectOption) => !!v || 'This field is required'
     <VaSelect
       v-model="newBudget.targetType"
       :label="t('budgets.typeFilter')"
-      text-by="name"
+      text-by="nameT"
       track-by="id"
       :rules="[required]"
       :options="transactiontypes"
     >
-      <template #content="{ value: user }">
-        <div v-if="user" :key="user.id" class="flex items-center gap-1 mr-4">
-          {{ user.name }}
+      <template #content="{ value: type }">
+        <div v-if="type" :key="type.id" class="flex items-center gap-1 mr-4">
+          {{ type.nameT }}
         </div>
       </template>
     </VaSelect>
     <VaSelect
       v-model="newBudget.budgetType"
       :label="t('budgets.budgetType')"
-      text-by="name"
+      text-by="nameT"
       track-by="id"
       :rules="[required]"
       :options="types"
     >
-      <template #content="{ value: user }">
-        <div v-if="user" :key="user.id" class="flex items-center gap-1 mr-4">
-          {{ user.name }}
+      <template #content="{ value: type }">
+        <div v-if="type" :key="type.id" class="flex items-center gap-1 mr-4">
+          {{ type.nameT }}
         </div>
       </template>
     </VaSelect>

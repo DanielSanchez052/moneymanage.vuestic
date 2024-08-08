@@ -25,12 +25,12 @@
     "tittle": "Budgets",
     "typeFilter": "Type",
     "budgetType": "Budget Type",
-    "add": "add Transaction",
+    "add": "add Budget",
     "type": {
-      "all": "All",
-      "revenue": "earning",
-      "spend": "expense",
-      "movement": "movement"
+      "all": "Todos",
+      "Daily": "Daily",
+      "Monthly": "Monthly",
+      "Yearly": "Yearly"
     },
     "table": {
       "ammount": "AMMOUNT",
@@ -54,6 +54,12 @@
   "loans": {
     "tittle": "Loans",
     "add": "Add ",
+    "frecuency": {
+      "all": "Todos",
+      "Daily": "Daily",
+      "Monthly": "Monthly",
+      "Yearly": "Yearly"
+    },
     "table": {
       "lend": "Quien",
       "borrow": "A quien",

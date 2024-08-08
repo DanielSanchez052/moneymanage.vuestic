@@ -94,12 +94,13 @@ const beforeEditFormModalClose = async (hide: () => unknown) => {
 const defaultSource: Source = {
   id: '0',
   description: 'all',
-  name: 'all',
+  name: t('budgets.type.all'),
   isActive: true,
 }
 const defaultType: TypeProp = {
   id: 0,
   name: 'all',
+  nameT: t('budgets.type.all'),
 }
 </script>
 
@@ -128,13 +129,13 @@ const defaultType: TypeProp = {
             v-model="filters.Type"
             :class="[pageSection != 'list' ? 'hidden' : '']"
             :placeholder="t('budgets.typeFilter')"
-            :text-by="(v: TypeProp) => t(`budgets.type.${v.name}`)"
+            text-by="nameT"
             track-by="id"
             :options="[defaultType, ...types]"
           >
             <template #content="{ value: type }">
               <div v-if="type" :key="type.id" class="flex items-center gap-1 mr-4">
-                {{ t(`budgets.type.${type.name}`) }}
+                {{ type.nameT }}
               </div>
             </template>
           </VaSelect>
@@ -170,8 +171,8 @@ const defaultType: TypeProp = {
       hide-default-actions
       :before-cancel="beforeEditFormModalClose"
     >
-      <h1 v-if="budgetSelected === null" class="va-h5 mb-4">{{ t('transactions.add') }}</h1>
-      <h1 v-else class="va-h5 mb-4">{{ t('transactions.edit') }}</h1>
+      <h1 v-if="budgetSelected === null" class="va-h5 mb-4">{{ t('budgets.add') }}</h1>
+      <h1 v-else class="va-h5 mb-4">{{ t('budgets.edit') }}</h1>
       <EditBudgetForm
         ref="editFormRef"
         :sources="sources"

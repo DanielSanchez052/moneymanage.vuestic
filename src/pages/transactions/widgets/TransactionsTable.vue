@@ -61,7 +61,7 @@ const totalPages = computed(() => Math.ceil(props.transactions.totalCount / prop
         </div>
       </template>
       <template #cell(typeName)="{ rowData: transaction }">
-        <TransactionTypeBadge :status="transaction.typeName" />
+        <TransactionTypeBadge :status-name="transaction.typeName" :status="transaction.type.name" />
       </template>
       <template #cell(isActive)="{ rowData: transaction }">
         <BooleanBadge :status="transaction.isActive" />

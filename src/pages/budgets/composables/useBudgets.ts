@@ -3,6 +3,7 @@ import { Pagination, PaginatedResult, AuthenticationParams } from '../../../data
 import { Budget, BudgetFilters, BudgetHistory, NewBudget } from '../types'
 import { watchIgnorable } from '@vueuse/core'
 import BudgetService from '../../../api/budget/budget.service'
+import { useI18n } from 'vue-i18n'
 
 const makePaginationRef = () => ref<Pagination>({ PageIndex: 1, PageSize: 10 })
 const makeFiltersRef = () =>
@@ -32,6 +33,8 @@ export const useBudgets = (options?: {
     pageSize: 0,
   })
 
+  const { t } = useI18n()
+
   const { pagination = makePaginationRef() } = options ?? {}
   const { filters = makeFiltersRef() } = options ?? {}
   const { authParams = makeAuthParamsRef() } = options ?? {}
@@ -50,35 +53,38 @@ export const useBudgets = (options?: {
     const resultConverted: Budget[] = budgets.value.items.map((a) => {
       const converted: BudgetHistory[] = a.budgetHistory.map((h) => {
         return {
-          id: h.id,
-          budgetSettingsId: h.budgetSettingsId,
-          targetAmmount: h.targetAmmount,
-          currentAmmount: h.currentAmmount,
-          budgetTypeName: h.budgetType?.name ?? '',
-          budgetType: h.budgetType,
-          targetType: h.targetType,
-          targetSource: h.targetSource,
+          ...h,
+          budgetTypeName: t(`budgets.type.${h.budgetType.name}`),
           targetSourceName: h.targetSource?.name ?? '',
-          targetTypeName: h.targetType?.name ?? '',
-          startDate: h.startDate,
-          endDate: h.endDate,
-          isActive: h.isActive,
-          createDate: h.createDate,
+          targetTypeName: t(`transactions.type.${h.targetType.name}`) ?? '',
+          targetType: {
+            id: h.targetType.id,
+            name: h.targetType.name,
+            nameT: t(`transactions.type.${h.targetType.name}`),
+          },
+          budgetType: {
+            id: h.budgetType.id,
+            name: h.budgetType.name,
+            nameT: t(`budgets.type.${h.budgetType.name}`),
+          },
         }
       })
 
       return {
-        id: a.id,
-        accountId: a.accountId,
-        targetAmmount: a.targetAmmount,
-        budgetType: a.budgetType,
-        targetType: a.targetType,
-        targetSource: a.targetSource,
-        budgetTypeName: a.budgetType?.name ?? '',
-        targetTypeName: a.targetType?.name ?? '',
+        ...a,
+        budgetTypeName: t(`budgets.type.${a.budgetType.name}`) ?? '',
+        targetTypeName: t(`transactions.type.${a.targetType.name}`) ?? '',
         targetSourceName: a.targetSource?.name ?? '',
-        createDate: a.createDate,
-        isActive: a.isActive,
+        targetType: {
+          id: a.targetType.id,
+          name: a.targetType.name,
+          nameT: t(`transactions.type.${a.targetType.name}`),
+        },
+        budgetType: {
+          id: a.budgetType.id,
+          name: a.budgetType.name,
+          nameT: t(`budgets.type.${a.budgetType.name}`),
+        },
         budgetHistory: converted,
       }
     })

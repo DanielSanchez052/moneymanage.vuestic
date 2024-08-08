@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import AuthService from './users/auth.service'
+import router from './../router/index'
+import { useAuthStore } from '../stores/auth'
 import { ApiResponse } from '../data/types'
-// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 
 axios.interceptors.response.use(
   (res: AxiosResponse): ApiResponse => {
@@ -17,15 +18,17 @@ axios.interceptors.response.use(
   },
   (error: AxiosError<any>): ApiResponse => {
     if (error.code === 'ERR_NETWORK') {
-      AuthService.logout()
+      console.error('Error de red o error del servidor')
     }
 
     const status = error.response ? error.response.status : null
 
     if (status === 401) {
+      const authStore = useAuthStore()
       //Refresh token
-      AuthService.logout()
       console.log('unauthorized')
+      authStore.logout()
+      router.push({ name: 'login' })
     }
     return {
       success: false,

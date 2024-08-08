@@ -22,6 +22,7 @@ export type Pagination = {
 export type TypeProp = {
   id: number
   name: string
+  nameT: string | undefined
 }
 
 export type AuthenticationParams = {

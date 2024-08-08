@@ -52,6 +52,7 @@ const defaultNewTransaction: Transaction = {
   type: {
     id: props.loanHistory?.transactionType.id ?? 0,
     name: props.loanHistory?.transactionType.name ?? '',
+    nameT: props.loanHistory?.transactionType.nameT ?? '',
   },
   typeName: props.loanHistory?.transactionType.name ?? '',
   sourceName: '',
@@ -134,16 +135,23 @@ const isEnabledAmmount = computed(
     (props.loanHistory != undefined && props.loanHistory?.ammoundPaid < props.loanHistory?.ammountToPay),
 )
 
-const maxAmmount = (v: string | SelectOption) => Number(v) <= (props.loanHistory?.ammountToPay ?? 0) || 'Max ammount allowed is '+ props.loanHistory?.ammountToPay
+const maxAmmount = (v: string | SelectOption) =>
+  Number(v) <= (props.loanHistory?.ammountToPay ?? 0) || 'Max ammount allowed is ' + props.loanHistory?.ammountToPay
 </script>
 
 <template>
   <div class="relative">
     <VaForm class="flex flex-col gap-2">
-      <VaInput v-model="currentTransaction.ammount" label="Ammount" mask="numeral" :rules="[maxAmmount]" :disabled="!isEnabledAmmount" />
+      <VaInput
+        v-model="currentTransaction.ammount"
+        label="Ammount"
+        mask="numeral"
+        :rules="[maxAmmount]"
+        :disabled="!isEnabledAmmount"
+      />
       <VaDateInput v-model="currentTransaction.transactionDate" label="Transaction Date" :disabled="!isPayment" />
       <VaInput disabled label="Source" :model-value="currentTransaction.sourceName" />
-      <VaInput disabled label="Type" :model-value="t(`transactions.type.${currentTransaction.typeName}`)" />
+      <VaInput disabled label="Type" :model-value="currentTransaction.type.nameT" />
       <section class="my-2 p-2">
         <h3 class="text-md text-center text-gray-400">{{ t('transactions.moreInfo') }}</h3>
         <div class="overflow-y-auto max-h-72">

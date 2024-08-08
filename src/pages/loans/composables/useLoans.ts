@@ -4,6 +4,7 @@ import { Loan, LoanFilters, LoanTransactionHistory, NewLoan, PaidLoan } from '..
 import { watchIgnorable } from '@vueuse/core'
 import LoanService from '../../../api/loan/loan.service'
 import { Transaction } from '../../transactions/types'
+import { useI18n } from 'vue-i18n'
 
 const makePaginationRef = () => ref<Pagination>({ PageIndex: 1, PageSize: 10 })
 const makeFiltersRef = () =>
@@ -34,6 +35,7 @@ export const useLoans = (options?: {
     totalCount: 0,
     pageSize: 0,
   })
+  const { t } = useI18n()
 
   const { pagination = makePaginationRef() } = options ?? {}
   const { filters = makeFiltersRef() } = options ?? {}
@@ -56,12 +58,22 @@ export const useLoans = (options?: {
           ...h,
           transactionCompleted: h.transactionId != undefined,
           transactionTypeName: h.transactionType?.name,
+          transactionType: {
+            id: h.transactionType.id,
+            name: h.transactionType.name,
+            nameT: t(`transactions.type.${h.transactionType?.name}`),
+          },
         }
       })
       return {
         ...a,
-        paymentFrecuencyName: a.paymentFrecuency.name,
+        paymentFrecuencyName: t(`loans.frecuency.${a.paymentFrecuency.name}`),
         loanTransactionHistory: converted,
+        paymentFrecuency: {
+          id: a.paymentFrecuency.id,
+          name: a.paymentFrecuency.name,
+          nameT: t(`loans.frecuency.${a.paymentFrecuency.name}`),
+        },
       }
     })
     loans.value.items = []

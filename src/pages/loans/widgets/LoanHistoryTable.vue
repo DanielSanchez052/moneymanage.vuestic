@@ -21,7 +21,7 @@ const columns = defineVaDataTableColumns([
 
 defineProps({
   loan: {
-    type: Object as PropType<Loan | null>,
+    type: Object as PropType<Loan | null> | null,
     required: true,
   },
   loading: {
@@ -53,7 +53,7 @@ const emit = defineEmits<{
       </template>
       <template #cell(transactionTypeName)="{ rowData: loanH }">
         <div class="ellipsis max-w-[230px] lg:max-w-[450px]">
-          <TransactionTypeBadge :status="loanH.transactionTypeName" />
+          <TransactionTypeBadge :status-name="loanH.transactionType.nameT" :status="loanH.transactionType.name" />
         </div>
       </template>
       <template #cell(generated)="{ rowData: loanH }">

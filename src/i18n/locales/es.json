@@ -25,12 +25,12 @@
     "tittle": "Presupuestos",
     "typeFilter": "Tipo",
     "budgetType": "Tipo Presupuesto",
-    "add": "Agregar Transaccion",
+    "add": "Agregar Presipuesto",
     "type": {
       "all": "Todos",
-      "revenue": "Ganado",
-      "spend": "Gastado",
-      "movement": "Movimiento"
+      "Daily": "Diario",
+      "Monthly": "Mensual",
+      "Yearly": "Anual"
     },
     "table": {
       "ammount": "MONTO",
@@ -54,6 +54,12 @@
   "loans": {
     "tittle": "Prestado",
     "add": "Agregar ",
+    "frecuency": {
+      "all": "Todos",
+      "Daily": "Diario",
+      "Monthly": "Mensual",
+      "Yearly": "Anual"
+    },
     "table": {
       "lend": "Quien",
       "borrow": "A quien",
