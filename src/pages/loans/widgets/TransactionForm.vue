@@ -52,6 +52,7 @@ const defaultNewTransaction: Transaction = {
   type: {
     id: props.loanHistory?.transactionType.id ?? 0,
     name: props.loanHistory?.transactionType.name ?? '',
+    nameT: props.loanHistory?.transactionType.nameT ?? '',
   },
   typeName: props.loanHistory?.transactionType.name ?? '',
   sourceName: '',

@@ -8,6 +8,7 @@
     "build:ci": "vite build",
     "start:ci": "serve -s ./dist",
     "prelint": "npm run format",
+    "compile": " vue-tsc --noEmit",
     "lint": "eslint \"./src/**/*.{ts,js,vue}\" --fix",
     "format": "prettier --write .",
     "preview": "vite preview"

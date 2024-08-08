@@ -21,7 +21,7 @@ const columns = defineVaDataTableColumns([
 
 defineProps({
   loan: {
-    type: Object as PropType<Loan> | null,
+    type: Object as PropType<Loan | null> | null,
     required: true,
   },
   loading: {
