@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import AuthService from './users/auth.service'
 import router from './../router/index'
 import { useAuthStore } from '../stores/auth'
 import { ApiResponse } from '../data/types'
