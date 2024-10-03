@@ -31,7 +31,8 @@ const { transactions, isLoading } = useTransactions({
   pagination: pagination_filters,
 })
 
-const pageSizeOptions = ref<number[]>([25, 50, 100])
+const pageSizeOptions = ref<number[]>([25, 50, 100, 200, 300, 500, 1000])
+
 
 const addPageSizeOption = (value: string) => {
   pageSizeOptions.value.push(parseInt(value))
