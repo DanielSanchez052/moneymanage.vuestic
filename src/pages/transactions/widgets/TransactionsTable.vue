@@ -99,7 +99,7 @@ const totalPages = computed(() => Math.ceil(props.transactions.totalCount / prop
       <div>
         <b>{{ $props.transactions.totalCount }} results.</b>
         Results per page
-        <VaSelect v-model="$props.pagination.PageSize" class="!w-20" :options="[10, 25, 50, 100]" />
+        <VaSelect v-model="$props.pagination.PageSize" class="!w-20" :options="[10, 25, 50, 100, 200, 300, 500, 1000]" />
       </div>
 
       <div v-if="totalPages > 1" class="flex">
