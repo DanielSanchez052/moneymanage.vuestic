@@ -170,8 +170,8 @@ const earningsOfMostBiggerSource = computed(() =>
       .filter(
         (t: Transaction) =>
           new Date(t.transactionDate).getMonth() == idx &&
-          t.source.id == expenseBigger.value.sourceId &&
-          t.type.id == 2,
+          t.source.id == earningBigger.value.sourceId &&
+          t.type.id == 1,
       )
       .reduce((n: number, { ammount }: Transaction) => n + ammount, 0),
   ),
@@ -183,8 +183,8 @@ const expensesOfMostBiggerSource = computed(() =>
       .filter(
         (t: Transaction) =>
           new Date(t.transactionDate).getMonth() == idx &&
-          t.source.id == earningBigger.value.sourceId &&
-          t.type.id == 1,
+          t.source.id == expenseBigger.value.sourceId &&
+          t.type.id == 2,
       )
       .reduce((n: number, { ammount }: Transaction) => n + ammount, 0),
   ),
