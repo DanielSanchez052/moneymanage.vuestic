@@ -35,9 +35,10 @@ const revenues = computed(() => {
 })
 
 const currentYear = new Date().getFullYear()
+const month = new Date().getMonth()
 const monthsWithCurrentYear = months.map((month) => `${month} ${currentYear}`)
 
-const selectedMonth = ref(monthsWithCurrentYear[0])
+const selectedMonth = ref(monthsWithCurrentYear[month])
 
 const earningsForSelectedMonth = computed(() => getRevenuePerMonth(selectedMonth.value.split(' ')[0], revenues.value))
 const totalEarnings = computed(() => {
@@ -62,7 +63,7 @@ const exportAsCSV = () => {
       <section class="flex flex-col items-start w-full sm:w-1/3 md:w-2/5 lg:w-1/4 gap-2 md:gap-8 pl-4">
         <div>
           <p class="text-xl font-semibold">{{ formatMoney(totalEarnings) }}</p>
-          <p class="whitespace-nowrap mt-2">Total earnings</p>
+          <p class="whitespace-nowrap mt-2">Total:</p>
         </div>
         <div class="flex flex-col sm:flex-col gap-2 md:gap-8 w-full">
           <div>
