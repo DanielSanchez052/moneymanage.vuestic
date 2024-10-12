@@ -49,7 +49,7 @@ export const useTransactions = (options?: {
     isLoading.value = true
     filters.value.AccountId = authParams.accountId
     const result = await TransactionService.GetTransactions(authParams.token, unref(filters), unref(pagination))
-
+    // const result = { data: {} };
     transactions.value = result.data as PaginatedResult<Transaction>
 
     const mapped: Transaction[] = transactions.value.items.map((tr) => ({
@@ -66,8 +66,7 @@ export const useTransactions = (options?: {
     transactions.value.items = []
     transactions.value.items.push(...mapped)
 
-    ignoreUpdates(() => {})
-
+    ignoreUpdates(() => { })
     isLoading.value = false
   }
 
@@ -91,7 +90,7 @@ export const useTransactions = (options?: {
 
     transaction.value = mapped
 
-    ignoreUpdates(() => {})
+    ignoreUpdates(() => { })
 
     isLoading.value = false
   }
