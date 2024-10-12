@@ -13,12 +13,12 @@ const props = defineProps<{
   revenues: SourceTotal[]
 }>()
 
-const { sources, revenues, months } = toRefs(props)
+const { sources, revenues } = toRefs(props)
 
 Chart.register(...registerables)
 
 const chart_data = computed(() => ({
-  labels: sources.value.map(s => s.name),
+  labels: sources.value.map((s) => s.name),
   datasets: [
     {
       // Show relative expenses ratio

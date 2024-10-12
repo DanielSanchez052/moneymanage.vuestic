@@ -38,7 +38,6 @@ const currentYear = new Date().getFullYear()
 const month = new Date().getMonth()
 const monthsWithCurrentYear = months.map((month) => `${month} ${currentYear}`)
 
-
 const selectedMonth = ref(monthsWithCurrentYear[month])
 
 const earningsForSelectedMonth = computed(() => getRevenuePerMonth(selectedMonth.value.split(' ')[0], revenues.value))

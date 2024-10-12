@@ -15,8 +15,6 @@ export type SourceTotal = {
   expenses: number
 }
 
-
-
 export const getRevenueFiltered = (month: string, revenues: SourceTotalPerMonth[]): SourceTotalPerMonth => {
   const revenue = revenues.find((revenue) => revenue.month === month)
   return revenue || { month, total: [] }

@@ -66,7 +66,7 @@ export const useTransactions = (options?: {
     transactions.value.items = []
     transactions.value.items.push(...mapped)
 
-    ignoreUpdates(() => { })
+    ignoreUpdates(() => {})
     isLoading.value = false
   }
 
@@ -90,7 +90,7 @@ export const useTransactions = (options?: {
 
     transaction.value = mapped
 
-    ignoreUpdates(() => { })
+    ignoreUpdates(() => {})
 
     isLoading.value = false
   }
