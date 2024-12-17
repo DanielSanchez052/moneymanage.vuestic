@@ -1,6 +1,6 @@
 export const serviceConfig = {
   identityApi: {
-    BaseUrl: 'https://dev-moneymanage-identity.addycoin.online/',
+    BaseUrl: 'https://dev-moneymanage-identity.moneymanage.my/',
     // BaseUrl:"https://localhost:7094/",
     login: 'api/security/create-token',
     register: 'api/user',
@@ -11,9 +11,9 @@ export const serviceConfig = {
     update_user: '/api/user/{id}',
   },
   moneyManageApi: {
-    BaseUrl: 'https://dev-moneymanage.addycoin.online/',
+    BaseUrl: 'https://dev-moneymanage.moneymanage.my/',
     // BaseUrl: "https://localhost:5078/",
-    signalRHubUrl: 'wss://dev-moneymanage.addycoin.online/notifications-hub',
+    signalRHubUrl: 'wss://dev-moneymanage.moneymanage.my/notifications-hub',
     account: 'api/account',
     balance_account: 'api/account/{0}/balance',
     settings: 'api/account/settings',
